@@ -1,8 +1,11 @@
 import Title from '../../../components/Title';
 import { Container } from '../style';
 import { ForgotPass } from './style';
+import { useNavigate } from 'react-router';
 
 const AuthPage = () => {
+  const navigate = useNavigate();
+
   return (
     <Container>
       <div>
@@ -19,7 +22,9 @@ const AuthPage = () => {
           </div>
           <div>
             <ForgotPass>
-              <div>I forgot my password</div>
+              <div onClick={() => navigate('/resetpassword')}>
+                I forgot my password
+              </div>
             </ForgotPass>
 
             <button type='submit' value='Log In'>
@@ -27,7 +32,7 @@ const AuthPage = () => {
             </button>
           </div>
         </form>
-        <button>Sign Up</button>
+        <button onClick={() => navigate('/registration')}>Sign Up</button>
       </div>
     </Container>
   );

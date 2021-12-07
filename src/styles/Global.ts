@@ -16,5 +16,14 @@ export const GlobalStyle = createGlobalStyle`
   button {
     cursor: pointer;
   }
+
+  body::-webkit-scrollbar {
+    width: 6px;         
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background-color: #B5C401;   
+    border-radius: 20px;       
+  }
   
 `;

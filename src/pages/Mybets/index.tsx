@@ -1,5 +1,11 @@
+import Header from '../../components/Header';
+
 const MyBetsPage = () => {
-  return <div>MyBetsPage</div>;
+  return (
+    <>
+      <Header />
+    </>
+  );
 };
 
 export default MyBetsPage;

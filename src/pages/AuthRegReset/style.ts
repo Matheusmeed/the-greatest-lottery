@@ -50,4 +50,11 @@ export const Container = styled.div`
     font-weight: bold;
     color: #707070;
   }
+
+  @media (max-width: 700px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 20px;
+  }
 `;
