@@ -17,13 +17,19 @@ export const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
 
-  body::-webkit-scrollbar {
+  *::-webkit-scrollbar {
     width: 6px;         
   }
 
-  body::-webkit-scrollbar-thumb {
+  *::-webkit-scrollbar-thumb {
     background-color: #B5C401;   
     border-radius: 20px;       
+  }
+
+  * {
+    list-style: none;
+    font-style: italic;
+    color: #707070;
   }
   
 `;

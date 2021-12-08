@@ -1,16 +1,16 @@
 import Header from '../../components/Header';
-import { Container } from './style';
-import { GameBtnsDiv } from './style';
-import { AddToCartBtn } from './style';
+import { Container, GameBtnsDiv, AddToCartBtn, GameBtn } from './style';
+import GameNumbers from './BetComponents/GameNumbers';
+import Cart from './BetComponents/Cart';
 
 const BetPage = () => {
   return (
     <>
-      <Header />
+      <Header showHomeBtn={true} />
       <Container>
         <div>
           <div>
-            <h2>NEW BET</h2> <h3>FOR GAME-NAME</h3>
+            <h2>NEW BET</h2> <h3>FOR GAMENAME</h3>
           </div>
 
           <div>
@@ -19,21 +19,21 @@ const BetPage = () => {
 
           <div>
             <h4>Fill your bet</h4>
-            <p>Mark as many numbers fdasihfuida fuiadhf fdafd af d</p>
+            <p>Mark as many numbers fdasihfuida fuiadhf fdafd af dadobe</p>
           </div>
 
-          <div>0 1 2 4</div>
+          <GameNumbers />
 
           <GameBtnsDiv>
             <div>
-              <button>Complete Game</button>
-              <button>Clear Game</button>
+              <GameBtn>Complete Game</GameBtn>
+              <GameBtn>Clear Game</GameBtn>
             </div>
             <AddToCartBtn>Add to cart</AddToCartBtn>
           </GameBtnsDiv>
         </div>
 
-        <div>Cart fadsf asf asfd fdafdasfdassa</div>
+        <Cart />
       </Container>
     </>
   );

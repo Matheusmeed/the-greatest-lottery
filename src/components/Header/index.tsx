@@ -1,16 +1,38 @@
 import { HeaderDiv } from './style';
 import { HeaderTitleDiv } from './style';
+import sair from '../../images/seta-direita.png';
+import { useNavigate } from 'react-router';
 
-const Header = () => {
+interface Header {
+  showHomeBtn: boolean;
+}
+
+const Header = (props: Header) => {
+  const navigate = useNavigate();
+
   return (
     <HeaderDiv>
       <HeaderTitleDiv>
-        <h1>TGL</h1>
+        <div>
+          <h1>TGL</h1>
+        </div>
+
+        {props.showHomeBtn && (
+          <button
+            onClick={() => {
+              navigate('/mybets');
+            }}
+          >
+            Home
+          </button>
+        )}
       </HeaderTitleDiv>
 
       <div>
-        <h3>Account</h3>
-        <h3>Sair</h3>
+        <button>Account</button>
+        <button>
+          Sair <img src={sair} alt='sair' />
+        </button>
       </div>
     </HeaderDiv>
   );
