@@ -1,8 +1,33 @@
 import Header from '../../components/Header';
 import { Container, FilterGameDiv, BetInfoDiv } from './styles';
 import seta from '../../images/seta-direita-verde-musgo.png';
+import GameList from '../Bet/BetComponents/GamesList';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+interface ICartGames {
+  min_cart_value: number;
+  types: [
+    {
+      id: number;
+      type: string;
+      description: string;
+      range: number;
+      price: number;
+      max_number: number;
+      color: string;
+    }
+  ];
+}
 
 const MyBetsPage = () => {
+  const [cartGames, setCartGames] = useState<ICartGames>();
+  useEffect(() => {
+    axios
+      .get('http://127.0.0.1:3333/cart_games')
+      .then((res) => setCartGames(res.data));
+  }, []);
+
   return (
     <>
       <Header showHomeBtn={false} />
@@ -12,13 +37,8 @@ const MyBetsPage = () => {
           <div>
             <h3>RECENT GAMES</h3>
           </div>
-
           <h4>Filters</h4>
-          <div>
-            <button>Lotofacil</button>
-            <button>MegaSena</button>
-            <button>Lotomania</button>
-          </div>
+          {/* {cartGames && <GameList games={cartGames.types} />} */}
         </FilterGameDiv>
 
         <div>

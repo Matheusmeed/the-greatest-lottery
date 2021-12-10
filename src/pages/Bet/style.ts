@@ -7,6 +7,15 @@ export const Container = styled.div`
   margin-right: 100px;
   margin-top: 50px;
 
+  div {
+    max-width: 700px;
+  }
+
+  h2 {
+    margin-right: 5px;
+    font-size: 1.4em;
+  }
+
   h2,
   h3 {
     display: inline;
@@ -45,7 +54,13 @@ export const AddToCartBtn = styled.button`
 `;
 
 export const GameBtn = styled.button`
+  margin-right: 20px;
   background: none;
   color: #27c383;
   border: 1px solid #27c383;
+`;
+
+export const GameName = styled.div`
+  display: inline;
+  color: ${(props) => props.color};
 `;

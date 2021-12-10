@@ -10,7 +10,7 @@ const Routes: React.FC = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path='/authentication' element={<AuthPage />} />
+        <Route path='/' element={<AuthPage />} />
         <Route path='/registration' element={<RegistrationPage />} />
         <Route path='/mybets' element={<MyBetsPage />} />
         <Route path='/bet' element={<BetPage />} />

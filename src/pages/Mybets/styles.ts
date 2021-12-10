@@ -45,14 +45,15 @@ export const FilterGameDiv = styled.div`
 
   div button {
     background-color: #f7f7f7;
-    border: 2px solid red;
+    border: 3px solid red;
     border-radius: 20px;
-    padding: 5px;
-    padding-right: 15px;
-    padding-left: 15px;
+    padding: 4px;
+    padding-right: 20px;
+    padding-left: 20px;
     margin-left: 10px;
     margin-right: 10px;
     color: red;
+    font-size: 0.9em;
   }
 `;
 

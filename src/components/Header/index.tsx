@@ -3,11 +3,11 @@ import { HeaderTitleDiv } from './style';
 import sair from '../../images/seta-direita.png';
 import { useNavigate } from 'react-router';
 
-interface Header {
+interface IHeader {
   showHomeBtn: boolean;
 }
 
-const Header = (props: Header) => {
+const Header = (props: IHeader) => {
   const navigate = useNavigate();
 
   return (

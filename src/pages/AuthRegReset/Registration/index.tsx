@@ -29,7 +29,7 @@ const RegistrationPage = () => {
               </button>
             </div>
           </form>
-          <button onClick={() => navigate('/authentication')}>Back</button>
+          <button onClick={() => navigate('/')}>Back</button>
         </div>
       </Container>
     </>

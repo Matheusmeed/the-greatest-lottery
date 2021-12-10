@@ -9,7 +9,6 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     font-style: italic;
     font-family: 'Roboto', sans-serif;
-    color: #707070;
     height: 100vh;
   }
 
@@ -27,7 +26,6 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   * {
-    list-style: none;
     font-style: italic;
     color: #707070;
   }
