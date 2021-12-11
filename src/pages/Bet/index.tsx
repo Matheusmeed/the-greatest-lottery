@@ -1,11 +1,5 @@
 import Header from '../../components/Header';
-import {
-  Container,
-  GameBtnsDiv,
-  AddToCartBtn,
-  GameBtn,
-  GameName,
-} from './style';
+import { Container, GameName } from './style';
 import GameNumbers from './BetComponents/GameNumbers';
 import Cart from './BetComponents/Cart';
 import GameList from './BetComponents/GamesList';
@@ -80,14 +74,6 @@ const BetPage = () => {
           </div>
 
           {actualGame && <GameNumbers actualGameInfo={actualGame} />}
-
-          <GameBtnsDiv>
-            <div>
-              <GameBtn>Complete Game</GameBtn>
-              <GameBtn>Clear Game</GameBtn>
-            </div>
-            <AddToCartBtn>Add to cart</AddToCartBtn>
-          </GameBtnsDiv>
         </div>
 
         <Cart />
