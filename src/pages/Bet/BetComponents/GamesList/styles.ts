@@ -15,4 +15,10 @@ export const GameButton = styled.button`
   padding-left: 15px;
   padding-right: 15px;
   font-weight: bold;
+  transition: ease-in 0.1s;
+
+  :hover {
+    background-color: ${(props) => props.color + '99'};
+    color: white;
+  }
 `;

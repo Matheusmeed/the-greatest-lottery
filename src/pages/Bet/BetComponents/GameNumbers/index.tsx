@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AddToCartBtn, ButtonNumber, GameBtn, GameBtnsDiv } from './style';
 
-interface IGameNumbers {
+interface IGameNumbersProps {
   actualGameInfo: {
     id: number;
     type: string;
@@ -11,23 +11,16 @@ interface IGameNumbers {
     max_number: number;
     color: string;
   };
+  setSelectedNumbers: Function;
+  selectedNumbers: number[];
+  setCartBetContent: Function;
 }
 
-type selectedNumbersType = number[];
-
-const GameNumbers = (props: IGameNumbers) => {
-  const [selectedNumbers, setSelectedNumbers] = useState<selectedNumbersType>(
-    []
-  );
-
+const GameNumbers = (props: IGameNumbersProps) => {
   let numbers: number[] = [];
 
   useEffect(() => {
-    console.log(selectedNumbers);
-  }, [selectedNumbers]);
-
-  useEffect(() => {
-    setSelectedNumbers([]);
+    props.setSelectedNumbers([]);
   }, [props.actualGameInfo]);
 
   function renderNumbers() {
@@ -36,15 +29,15 @@ const GameNumbers = (props: IGameNumbers) => {
     }
 
     function handleNumberClick(num: number) {
-      if (selectedNumbers.includes(num)) {
-        let newArray = selectedNumbers;
+      if (props.selectedNumbers.includes(num)) {
+        let newArray = props.selectedNumbers;
         newArray.splice(newArray.indexOf(num), 1);
-        setSelectedNumbers([...newArray]);
+        props.setSelectedNumbers([...newArray]);
       } else {
-        if (props.actualGameInfo.max_number === selectedNumbers.length) {
+        if (props.actualGameInfo.max_number === props.selectedNumbers.length) {
           alert(`Você já escolheu ${props.actualGameInfo.max_number} números!`);
         } else {
-          setSelectedNumbers((actual) => [...actual, num]);
+          props.setSelectedNumbers((actual: number[]) => [...actual, num]);
         }
       }
     }
@@ -53,39 +46,63 @@ const GameNumbers = (props: IGameNumbers) => {
       return (
         <ButtonNumber
           color={
-            selectedNumbers.includes(num) ? props.actualGameInfo.color : ''
+            props.selectedNumbers.includes(num)
+              ? props.actualGameInfo.color
+              : ''
           }
           onClick={() => handleNumberClick(num)}
           key={num}
         >
-          {num}
+          {num.toString().length == 2 ? num : '0' + num}
         </ButtonNumber>
       );
     });
   }
 
   function clearGame() {
-    setSelectedNumbers([]);
+    props.setSelectedNumbers([]);
   }
 
   function completeGame() {
-    if (selectedNumbers.length === props.actualGameInfo.max_number) {
+    if (props.selectedNumbers.length === props.actualGameInfo.max_number) {
       alert(`Você já escolheu ${props.actualGameInfo.max_number} números!`);
     } else {
       let randomNumbers: number[] = [];
-      let total = props.actualGameInfo.max_number - selectedNumbers.length;
+      let total =
+        props.actualGameInfo.max_number - props.selectedNumbers.length;
       let range = props.actualGameInfo.range;
 
       while (randomNumbers.length < total) {
         let random = Math.floor(Math.random() * range + 1);
 
         if (!randomNumbers.includes(random)) {
-          if (!selectedNumbers.includes(random)) {
+          if (!props.selectedNumbers.includes(random)) {
             randomNumbers.push(random);
           }
         }
       }
-      setSelectedNumbers((actual) => [...actual, ...randomNumbers]);
+      props.setSelectedNumbers((actual: number[]) => [
+        ...actual,
+        ...randomNumbers,
+      ]);
+    }
+  }
+
+  function handleAddToCart() {
+    if (props.selectedNumbers.length < props.actualGameInfo.max_number) {
+      alert(
+        `Você precisa escolher mais ${
+          props.actualGameInfo.max_number - props.selectedNumbers.length
+        } número(s)`
+      );
+    } else {
+      clearGame();
+      props.setCartBetContent({
+        selectedNumbers: props.selectedNumbers,
+        gameName: props.actualGameInfo.type,
+        gameColor: props.actualGameInfo.color,
+        gamePrice: props.actualGameInfo.price,
+      });
     }
   }
 
@@ -98,7 +115,9 @@ const GameNumbers = (props: IGameNumbers) => {
           <GameBtn onClick={() => completeGame()}>Complete Game</GameBtn>
           <GameBtn onClick={() => clearGame()}>Clear Game</GameBtn>
         </div>
-        <AddToCartBtn>Add to cart</AddToCartBtn>
+        <AddToCartBtn onClick={() => handleAddToCart()}>
+          Add to cart
+        </AddToCartBtn>
       </GameBtnsDiv>
     </div>
   );

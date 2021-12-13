@@ -31,9 +31,18 @@ interface IActualGame {
   color: string;
 }
 
+interface IBetContent {
+  selectedNumbers: number[];
+  gameName: string;
+  gameColor: string;
+  gamePrice: number;
+}
+
 const BetPage = () => {
   const [gameInfo, setGameinfo] = useState<IGameInfo>();
   const [actualGame, setActualGame] = useState<IActualGame>();
+  const [selectedNumbers, setSelectedNumbers] = useState([]);
+  const [cartBetContent, setCartBetContent] = useState<IBetContent>();
 
   useEffect(() => {
     axios.get('http://127.0.0.1:3333/cart_games').then((res) => {
@@ -71,12 +80,24 @@ const BetPage = () => {
           <div>
             <h4>Fill your bet</h4>
             <p>{actualGame?.description}</p>
+            <p>
+              Números Selecionados:{' '}
+              <span style={{ color: actualGame?.color, display: 'inline' }}>
+                {selectedNumbers.length}
+              </span>
+            </p>
           </div>
 
-          {actualGame && <GameNumbers actualGameInfo={actualGame} />}
+          {actualGame && (
+            <GameNumbers
+              actualGameInfo={actualGame}
+              setSelectedNumbers={setSelectedNumbers}
+              selectedNumbers={selectedNumbers}
+              setCartBetContent={setCartBetContent}
+            />
+          )}
         </div>
-
-        <Cart />
+        <Cart cartBetContent={cartBetContent} />
       </Container>
     </>
   );

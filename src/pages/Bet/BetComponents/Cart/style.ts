@@ -62,22 +62,28 @@ export const DivSave = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  button:hover {
+    color: #00ff95;
+  }
 `;
 
 export const GameName = styled.h4`
-  color: red;
+  color: ${(props) => props.color || 'pink'};
   margin: 2px;
   margin-right: 6px;
   display: inline;
 `;
 
-export const DivBetInfo = styled.div`
+export const DivBetInfo = styled.section`
   display: flex;
   flex-direction: column;
-  border-left: 4px solid red;
+  justify-content: center;
+  height: 65px;
+  border-left: 4px solid ${(props) => props.color || 'pink'};
   padding-left: 10px;
 
   div {
-    align-items: center;
+    margin-top: 4px;
   }
 `;
