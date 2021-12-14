@@ -10,6 +10,7 @@ export const GlobalStyle = createGlobalStyle`
     font-style: italic;
     font-family: 'Roboto', sans-serif;
     height: 100vh;
+    overflow-x: hidden;
   }
 
   button {

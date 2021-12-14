@@ -44,11 +44,21 @@ export const Container = styled.div`
 
   div button {
     margin-top: 10px;
+    width: 100%;
     background: none;
     border: none;
     font-size: 1.4em;
     font-weight: bold;
     color: #707070;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  img {
+    width: 20px;
+    margin-left: 9px;
+    margin-right: 9px;
   }
 
   @media (max-width: 700px) {

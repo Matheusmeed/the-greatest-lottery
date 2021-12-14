@@ -1,6 +1,9 @@
 import { Container } from '../style';
 import Title from '../../../components/Title';
 import { useNavigate } from 'react-router';
+import setaDireitaVerde from '../../../images/seta-direita-verde-musgo.png';
+import setaDireita from '../../../images/seta-direita.png';
+import { ImagemInvertida } from '../ResetPassword/styles';
 
 const RegistrationPage = () => {
   const navigate = useNavigate();
@@ -25,11 +28,14 @@ const RegistrationPage = () => {
             </div>
             <div>
               <button type='submit' value='Register'>
-                Register
+                Register <img src={setaDireitaVerde} alt='register' />
               </button>
             </div>
           </form>
-          <button onClick={() => navigate('/')}>Back</button>
+          <button onClick={() => navigate('/')}>
+            {' '}
+            <ImagemInvertida src={setaDireita} alt='back' /> Back
+          </button>
         </div>
       </Container>
     </>

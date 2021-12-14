@@ -2,6 +2,8 @@ import Title from '../../../components/Title';
 import { Container } from '../style';
 import { ForgotPass } from './style';
 import { useNavigate } from 'react-router';
+import setaDireitaVerde from '../../../images/seta-direita-verde-musgo.png';
+import setaDireita from '../../../images/seta-direita.png';
 
 const AuthPage = () => {
   const navigate = useNavigate();
@@ -28,11 +30,13 @@ const AuthPage = () => {
             </ForgotPass>
 
             <button type='submit' value='Log In'>
-              Log In
+              Log In <img src={setaDireitaVerde} alt='log-in' />
             </button>
           </div>
         </form>
-        <button onClick={() => navigate('/registration')}>Sign Up</button>
+        <button onClick={() => navigate('/registration')}>
+          Sign Up <img src={setaDireita} alt='' />
+        </button>
       </div>
     </Container>
   );

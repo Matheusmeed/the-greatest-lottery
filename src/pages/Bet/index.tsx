@@ -43,62 +43,70 @@ const BetPage = () => {
   const [actualGame, setActualGame] = useState<IActualGame>();
   const [selectedNumbers, setSelectedNumbers] = useState([]);
   const [cartBetContent, setCartBetContent] = useState<IBetContent>();
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:3333/cart_games').then((res) => {
-      setGameinfo(res.data);
-      setActualGame(res.data.types[0]);
-    });
+    axios
+      .get('http://127.0.0.1:3333/cart_games')
+      .then((res) => {
+        setGameinfo(res.data);
+        setActualGame(res.data.types[0]);
+      })
+      .catch((error) => setError(true));
   }, []);
 
   return (
     <>
       <Header showHomeBtn={true} />
-      <Container>
-        <div>
+      {error ? (
+        <h1 style={{ marginLeft: 10 }}>API NÃO ENCONTRADA!</h1>
+      ) : (
+        <Container>
           <div>
-            <h2>NEW BET</h2>
-            <h3>
-              FOR <GameName>{actualGame?.type.toUpperCase()}</GameName>
-            </h3>
+            <div>
+              <h2>NEW BET</h2>
+              <h3>
+                FOR <GameName>{actualGame?.type.toUpperCase()}</GameName>
+              </h3>
+            </div>
+
+            <div>
+              <h4>Choose a game</h4>
+            </div>
+
+            {gameInfo && actualGame ? (
+              <GameList
+                actualGame={actualGame}
+                setActualGame={setActualGame}
+                games={gameInfo?.types}
+              />
+            ) : (
+              ''
+            )}
+
+            <div>
+              <h4>Fill your bet</h4>
+              <p>{actualGame?.description}</p>
+              <p>
+                Números Selecionados:{' '}
+                <span style={{ color: actualGame?.color, display: 'inline' }}>
+                  {selectedNumbers.length}
+                </span>
+              </p>
+            </div>
+
+            {actualGame && (
+              <GameNumbers
+                actualGameInfo={actualGame}
+                setSelectedNumbers={setSelectedNumbers}
+                selectedNumbers={selectedNumbers}
+                setCartBetContent={setCartBetContent}
+              />
+            )}
           </div>
-
-          <div>
-            <h4>Choose a game</h4>
-          </div>
-
-          {gameInfo && actualGame ? (
-            <GameList
-              actualGame={actualGame}
-              setActualGame={setActualGame}
-              games={gameInfo?.types}
-            />
-          ) : (
-            ''
-          )}
-
-          <div>
-            <h4>Fill your bet</h4>
-            <p>{actualGame?.description}</p>
-            <p>
-              Números Selecionados:{' '}
-              <span style={{ color: actualGame?.color, display: 'inline' }}>
-                {selectedNumbers.length}
-              </span>
-            </p>
-          </div>
-
-          {actualGame && (
-            <GameNumbers
-              actualGameInfo={actualGame}
-              setSelectedNumbers={setSelectedNumbers}
-              selectedNumbers={selectedNumbers}
-              setCartBetContent={setCartBetContent}
-            />
-          )}
-        </div>
-        <Cart cartBetContent={cartBetContent} />
-      </Container>
+          <Cart cartBetContent={cartBetContent} />
+        </Container>
+      )}
     </>
   );
 };

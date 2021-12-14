@@ -33,6 +33,13 @@ export const Container = styled.div`
   p {
     margin-top: 8px;
   }
+
+  @media (max-width: 975px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 20px;
+  }
 `;
 
 export const GameName = styled.div`

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AddToCartBtn, ButtonNumber, GameBtn, GameBtnsDiv } from './style';
+import CartImg from '../../../../images/carrinho-de-compras.png';
 
 interface IGameNumbersProps {
   actualGameInfo: {
@@ -116,7 +117,7 @@ const GameNumbers = (props: IGameNumbersProps) => {
           <GameBtn onClick={() => clearGame()}>Clear Game</GameBtn>
         </div>
         <AddToCartBtn onClick={() => handleAddToCart()}>
-          Add to cart
+          <img src={CartImg} alt='cart' /> Add to cart
         </AddToCartBtn>
       </GameBtnsDiv>
     </div>

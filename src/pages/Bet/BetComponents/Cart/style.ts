@@ -10,6 +10,8 @@ export const CartDiv = styled.div`
   padding-left: 10px;
   padding-right: 8px;
   position: relative;
+  margin-left: 5px;
+  margin-bottom: 30px;
 
   ul {
     padding: 0;
@@ -47,6 +49,10 @@ export const CartDiv = styled.div`
 
   img {
     width: 21px;
+  }
+
+  @media (max-width: 9750px) {
+    margin-top: 30px;
   }
 `;
 

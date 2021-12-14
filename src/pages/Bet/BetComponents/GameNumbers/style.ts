@@ -16,6 +16,7 @@ export const GameBtnsDiv = styled.div`
   justify-content: space-between;
   margin-top: 20px;
   margin-bottom: 10px;
+  margin-right: 45px;
 
   button {
     border-radius: 6px;
@@ -28,10 +29,19 @@ export const AddToCartBtn = styled.button`
   background-color: #27c383;
   color: white;
   border: 1px solid #27c383;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 140px;
 
   :hover {
     background-color: #00ff95;
     border-color: #00ff95;
+  }
+
+  img {
+    width: 20px;
+    margin-right: 10px;
   }
 `;
 

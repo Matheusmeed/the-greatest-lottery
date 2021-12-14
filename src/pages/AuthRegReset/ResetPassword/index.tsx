@@ -1,6 +1,9 @@
 import Title from '../../../components/Title';
 import { Container } from '../style';
 import { useNavigate } from 'react-router-dom';
+import setaDireitaVerde from '../../../images/seta-direita-verde-musgo.png';
+import setaDireita from '../../../images/seta-direita.png';
+import { ImagemInvertida } from './styles';
 
 const ResetPassword = () => {
   const navigate = useNavigate();
@@ -19,11 +22,14 @@ const ResetPassword = () => {
             </div>
             <div>
               <button type='submit' value='Log In'>
-                Send Link
+                Send Link <img src={setaDireitaVerde} alt='send link' />
               </button>
             </div>
           </form>
-          <button onClick={() => navigate('/')}>Back</button>
+          <button onClick={() => navigate('/')}>
+            {' '}
+            <ImagemInvertida src={setaDireita} alt='' /> Back
+          </button>
         </div>
       </Container>
     </>
