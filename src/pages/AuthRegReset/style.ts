@@ -68,3 +68,13 @@ export const Container = styled.div`
     margin: 20px;
   }
 `;
+
+export const ErrorDiv = styled.div`
+  background-color: #ff5959;
+  padding: 4px;
+  margin-top: -3px;
+  color: white;
+  display: flex;
+  align-items: flex-start;
+  justify-content: start;
+`;
