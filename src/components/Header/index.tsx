@@ -29,7 +29,7 @@ const Header = (props: IHeader) => {
       </HeaderTitleDiv>
 
       <div>
-        <button>Account</button>
+        <button onClick={() => navigate('/account')}>Account</button>
         <button>
           Sair <img src={sair} alt='sair' />
         </button>

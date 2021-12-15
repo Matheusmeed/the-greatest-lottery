@@ -5,9 +5,13 @@ import setaDireitaVerde from '../../../images/seta-direita-verde-musgo.png';
 import setaDireita from '../../../images/seta-direita.png';
 import { ImagemInvertida } from '../ResetPassword/styles';
 import { useState } from 'react';
+import api from '../../../services/api';
+import { useDispatch } from 'react-redux';
+import { saveUserInfo } from '../../../store/Stock.store';
 
 const RegistrationPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
@@ -44,6 +48,27 @@ const RegistrationPage = () => {
     }
   }
 
+  function handleRegistration(event: { preventDefault: () => void }) {
+    event?.preventDefault();
+
+    if (!name || !pass || !email || errorEmail || errorPass || errorName) {
+      alert('Preencha todos os campos corretamente!');
+    } else {
+      api
+        .post('/user/create', {
+          email: email.trim(),
+          name: name.trim(),
+          password: pass.trim(),
+        })
+        .then((res) => {
+          dispatch(saveUserInfo(res.data));
+          navigate('/bet');
+          console.log(res);
+        })
+        .catch((error) => alert('Esse email já existe!'));
+    }
+  }
+
   return (
     <>
       <Container>
@@ -52,7 +77,7 @@ const RegistrationPage = () => {
         </div>
         <div>
           <h1>Registration</h1>
-          <form action=''>
+          <form onSubmit={handleRegistration}>
             <div>
               <input
                 type='text'

@@ -39,7 +39,7 @@ const AuthPage = () => {
     } else {
       e.preventDefault();
       api
-        .post('/login', { email, password: pass })
+        .post('/login', { email: email.trim(), password: pass.trim() })
         .then((res) => {
           dispatch(saveUserInfo(res.data));
           navigate('/bet');

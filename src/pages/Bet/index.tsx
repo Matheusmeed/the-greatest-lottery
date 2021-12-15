@@ -4,10 +4,10 @@ import GameNumbers from './BetComponents/GameNumbers';
 import Cart from './BetComponents/Cart';
 import GameList from './BetComponents/GamesList';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import NotLogged from '../../components/Header/NotLogged';
+import NotLogged from '../../components/NotLogged';
+import api from '../../services/api';
 
 interface IGameInfo {
   min_cart_value: number;
@@ -41,8 +41,6 @@ interface IBetContent {
   gamePrice: number;
 }
 
-interface IUserInfo {}
-
 const BetPage = () => {
   const [gameInfo, setGameinfo] = useState<IGameInfo>();
   const [actualGame, setActualGame] = useState<IActualGame>();
@@ -56,8 +54,8 @@ const BetPage = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios
-      .get('http://127.0.0.1:3333/cart_games')
+    api
+      .get('/cart_games')
       .then((res) => {
         setGameinfo(res.data);
         setActualGame(res.data.types[0]);
