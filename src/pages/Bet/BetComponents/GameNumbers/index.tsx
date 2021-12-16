@@ -24,7 +24,7 @@ const GameNumbers = () => {
 
     function handleNumberClick(num: number) {
       if (stock.selectedNumbers.includes(num)) {
-        let newArray = stock.selectedNumbers;
+        let newArray = [...stock.selectedNumbers];
         newArray.splice(newArray.indexOf(num), 1);
         dispatch(setSelectedNumbers([...newArray]));
       } else {

@@ -41,9 +41,20 @@ export interface IBetContentAction {
   payload: IBetContent;
 }
 
+export interface IbetListAction {
+  payload: IBetList;
+}
+
 //Tipagens para o InitialState
 
 export interface IBetContent {
+  selectedNumbers: number[];
+  gameName: string;
+  gameColor: string;
+  gamePrice: number;
+}
+
+export interface IBetList {
   selectedNumbers: number[];
   gameName: string;
   gameColor: string;
@@ -66,6 +77,8 @@ interface IInitialState {
   selectedNumbers: number[];
 
   cartBetContent: IBetContent;
+
+  betList: IBetList[];
 }
 
 const stock = createSlice({
@@ -86,6 +99,8 @@ const stock = createSlice({
     selectedNumbers: [0],
 
     cartBetContent: {},
+
+    betList: [{}],
   } as IInitialState,
   reducers: {
     saveUserInfo(state, action: IUserInfoAction) {
@@ -114,6 +129,14 @@ const stock = createSlice({
     setCartBetContent(state, action: IBetContentAction) {
       state.cartBetContent = action.payload;
     },
+
+    setBetList(state, action: IbetListAction) {
+      state.betList.push(action.payload);
+    },
+
+    clearBetList(state, action) {
+      state.betList = action.payload;
+    },
   },
 });
 
@@ -124,5 +147,7 @@ export const {
   setActualGameInfo,
   setSelectedNumbers,
   setCartBetContent,
+  setBetList,
+  clearBetList,
 } = stock.actions;
 export default stock.reducer;
