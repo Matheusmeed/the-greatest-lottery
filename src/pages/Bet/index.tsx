@@ -11,15 +11,7 @@ import { addGamesInfo, setActualGameInfo } from '../../store/Stock.store';
 import { useDispatch } from 'react-redux';
 import api from '../../services/api';
 
-interface IBetContent {
-  selectedNumbers: number[];
-  gameName: string;
-  gameColor: string;
-  gamePrice: number;
-}
-
 const BetPage = () => {
-  const [cartBetContent, setCartBetContent] = useState<IBetContent>();
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [userLogged, setUserLogged] = useState(false);
@@ -87,11 +79,9 @@ const BetPage = () => {
                 </p>
               </div>
 
-              {stock.actualGameInfo && (
-                <GameNumbers setCartBetContent={setCartBetContent} />
-              )}
+              {stock.actualGameInfo && <GameNumbers />}
             </div>
-            <Cart cartBetContent={cartBetContent} />
+            <Cart />
           </Container>
         )
       ) : (

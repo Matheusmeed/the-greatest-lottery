@@ -123,5 +123,6 @@ export const {
   addGamesInfo,
   setActualGameInfo,
   setSelectedNumbers,
+  setCartBetContent,
 } = stock.actions;
 export default stock.reducer;

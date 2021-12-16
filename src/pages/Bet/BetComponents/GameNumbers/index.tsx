@@ -2,14 +2,13 @@ import { useEffect } from 'react';
 import { AddToCartBtn, ButtonNumber, GameBtn, GameBtnsDiv } from './style';
 import CartImg from '../../../../images/carrinho-de-compras.png';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSelectedNumbers } from '../../../../store/Stock.store';
+import {
+  setCartBetContent,
+  setSelectedNumbers,
+} from '../../../../store/Stock.store';
 import { RootState } from '../../../../store';
 
-interface IGameNumbersProps {
-  setCartBetContent: Function;
-}
-
-const GameNumbers = (props: IGameNumbersProps) => {
+const GameNumbers = () => {
   let numbers: number[] = [];
   const stock = useSelector((state: RootState) => state.stock);
   const dispatch = useDispatch();
@@ -91,12 +90,14 @@ const GameNumbers = (props: IGameNumbersProps) => {
       );
     } else {
       clearGame();
-      props.setCartBetContent({
-        selectedNumbers: stock.selectedNumbers,
-        gameName: stock.actualGameInfo.type,
-        gameColor: stock.actualGameInfo.color,
-        gamePrice: stock.actualGameInfo.price,
-      });
+      dispatch(
+        setCartBetContent({
+          selectedNumbers: stock.selectedNumbers,
+          gameName: stock.actualGameInfo.type,
+          gameColor: stock.actualGameInfo.color,
+          gamePrice: stock.actualGameInfo.price,
+        })
+      );
     }
   }
 

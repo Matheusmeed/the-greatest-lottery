@@ -2,15 +2,8 @@ import { CartDiv, DivSave, GameName, DivBetInfo } from './style';
 import setaVerde from '../../../../images/seta-direita-verde.png';
 import lixeira from '../../../../images/lixeira.png';
 import { useEffect, useState } from 'react';
-
-interface ICartProps {
-  cartBetContent?: {
-    selectedNumbers: number[];
-    gameName: string;
-    gameColor: string;
-    gamePrice: number;
-  };
-}
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../store';
 
 interface IBetList {
   selectedNumbers: number[];
@@ -21,17 +14,18 @@ interface IBetList {
 
 type betList = IBetList[];
 
-const Cart = (props: ICartProps) => {
+const Cart = () => {
+  const stock = useSelector((state: RootState) => state.stock);
   const [betList, setBetList] = useState<betList>([]);
 
   useEffect(() => {
-    if (props.cartBetContent !== undefined) {
+    if (stock.cartBetContent !== undefined) {
       let retorno = false;
       betList.forEach((bet) => {
         if (
-          bet.gameName === props.cartBetContent?.gameName &&
+          bet.gameName === stock.cartBetContent.gameName &&
           bet.selectedNumbers.toString() ===
-            props.cartBetContent.selectedNumbers.toString()
+            stock.cartBetContent.selectedNumbers.toString()
         ) {
           retorno = true;
         }
@@ -40,10 +34,10 @@ const Cart = (props: ICartProps) => {
         alert('Essa aposta já foi adicionada ao carrinho!');
       } else {
         let betListArray = betList;
-        setBetList([...betListArray, props.cartBetContent]);
+        setBetList([...betListArray, stock.cartBetContent]);
       }
     }
-  }, [props.cartBetContent]);
+  }, [stock.cartBetContent]);
 
   function removeBet(gameName: string, selectedNumbers: string) {
     betList.forEach((bet) => {
@@ -61,7 +55,7 @@ const Cart = (props: ICartProps) => {
   function total() {
     let total = 0;
     betList.map((bet) => {
-      return (total += bet.gamePrice);
+      if (typeof bet.gamePrice === 'number') return (total += bet.gamePrice);
     });
     return total.toLocaleString('pt-br', { minimumFractionDigits: 2 });
   }
@@ -72,6 +66,7 @@ const Cart = (props: ICartProps) => {
       <ul>
         {betList.length
           ? betList.map((el) => {
+              console.log('here: ', betList);
               return (
                 <li key={Math.random()}>
                   <button
@@ -82,12 +77,15 @@ const Cart = (props: ICartProps) => {
                     <img src={lixeira} alt='Save' />
                   </button>
                   <DivBetInfo color={el.gameColor}>
-                    <div>{el.selectedNumbers.join(', ')}</div>
+                    <div>
+                      {el.selectedNumbers && el.selectedNumbers.join(', ')}
+                    </div>
                     <div>
                       <GameName color={el.gameColor}>{el.gameName}</GameName> R${' '}
-                      {el.gamePrice.toLocaleString('pt-br', {
-                        minimumFractionDigits: 2,
-                      })}
+                      {el.gamePrice &&
+                        el.gamePrice.toLocaleString('pt-br', {
+                          minimumFractionDigits: 2,
+                        })}
                     </div>
                   </DivBetInfo>
                 </li>
