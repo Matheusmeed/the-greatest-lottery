@@ -2,6 +2,8 @@ import { HeaderDiv } from './style';
 import { HeaderTitleDiv } from './style';
 import sair from '../../images/seta-direita.png';
 import { useNavigate } from 'react-router';
+import { removeUserInfo } from '../../store/Stock.store';
+import { useDispatch } from 'react-redux';
 
 interface IHeader {
   showHomeBtn: boolean;
@@ -9,6 +11,12 @@ interface IHeader {
 
 const Header = (props: IHeader) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  function handleLeave() {
+    dispatch(removeUserInfo());
+    navigate('/');
+  }
 
   return (
     <HeaderDiv>
@@ -30,7 +38,7 @@ const Header = (props: IHeader) => {
 
       <div>
         <button onClick={() => navigate('/account')}>Account</button>
-        <button>
+        <button onClick={handleLeave}>
           Sair <img src={sair} alt='sair' />
         </button>
       </div>

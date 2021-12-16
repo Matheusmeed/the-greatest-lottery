@@ -5,7 +5,7 @@ import { Info } from './styles';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import NotLogged from '../../components/NotLogged';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Account = () => {
   const stock = useSelector((state: RootState) => state.stock);
@@ -16,6 +16,10 @@ const Account = () => {
   const email = stock.userInfo.user.email;
   const dateUnformatted = stock.userInfo.user.created_at;
   let date = new Date(dateUnformatted).toLocaleDateString();
+
+  useEffect(() => {
+    stock.userInfo.token.token ? setLogged(true) : setLogged(false);
+  }, [stock]);
 
   return (
     <>

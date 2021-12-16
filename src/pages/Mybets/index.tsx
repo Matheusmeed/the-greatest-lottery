@@ -3,10 +3,12 @@ import { Container, FilterGameDiv, BetInfoDiv } from './styles';
 import seta from '../../images/seta-direita-verde-musgo.png';
 import GameList from '../Bet/BetComponents/GamesList';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import NotLogged from '../../components/NotLogged';
+import api from '../../services/api';
+import { GameButton } from '../Bet/BetComponents/GamesList/styles';
 
 interface ICartGames {
   min_cart_value: number;
@@ -24,15 +26,14 @@ interface ICartGames {
 }
 
 const MyBetsPage = () => {
+  const navigate = useNavigate();
   const [cartGames, setCartGames] = useState<ICartGames>();
   const [userLogged, setUserLogged] = useState(false);
 
   const stock = useSelector((state: RootState) => state.stock);
 
   useEffect(() => {
-    axios
-      .get('http://127.0.0.1:3333/cart_games')
-      .then((res) => setCartGames(res.data));
+    api.get('/cart_games').then((res) => setCartGames(res.data));
   }, []);
 
   useEffect(() => {
@@ -55,7 +56,7 @@ const MyBetsPage = () => {
             </FilterGameDiv>
 
             <div>
-              <button>
+              <button onClick={() => navigate('/bet')}>
                 New Bet <img src={seta} alt='nova aposta' />
               </button>
             </div>
