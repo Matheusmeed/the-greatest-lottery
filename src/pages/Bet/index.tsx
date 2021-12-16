@@ -87,15 +87,15 @@ const BetPage = () => {
                       display: 'inline',
                     }}
                   >
-                    {selectedNumbers.length}
+                    {stock.selectedNumbers.length}
                   </span>
                 </p>
               </div>
 
               {stock.actualGameInfo && (
                 <GameNumbers
-                  setSelectedNumbers={setSelectedNumbers}
-                  selectedNumbers={selectedNumbers}
+                  // setSelectedNumbers={setSelectedNumbers}
+                  // selectedNumbers={selectedNumbers}
                   setCartBetContent={setCartBetContent}
                 />
               )}

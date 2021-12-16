@@ -1,21 +1,21 @@
 import { useEffect } from 'react';
 import { AddToCartBtn, ButtonNumber, GameBtn, GameBtnsDiv } from './style';
 import CartImg from '../../../../images/carrinho-de-compras.png';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSelectedNumbers } from '../../../../store/Stock.store';
 import { RootState } from '../../../../store';
 
 interface IGameNumbersProps {
-  setSelectedNumbers: Function;
-  selectedNumbers: number[];
   setCartBetContent: Function;
 }
 
 const GameNumbers = (props: IGameNumbersProps) => {
   let numbers: number[] = [];
   const stock = useSelector((state: RootState) => state.stock);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    props.setSelectedNumbers([]);
+    dispatch(setSelectedNumbers([]));
   }, [stock.actualGameInfo]);
 
   function renderNumbers() {
@@ -24,15 +24,15 @@ const GameNumbers = (props: IGameNumbersProps) => {
     }
 
     function handleNumberClick(num: number) {
-      if (props.selectedNumbers.includes(num)) {
-        let newArray = props.selectedNumbers;
+      if (stock.selectedNumbers.includes(num)) {
+        let newArray = stock.selectedNumbers;
         newArray.splice(newArray.indexOf(num), 1);
-        props.setSelectedNumbers([...newArray]);
+        dispatch(setSelectedNumbers([...newArray]));
       } else {
-        if (stock.actualGameInfo.max_number === props.selectedNumbers.length) {
+        if (stock.actualGameInfo.max_number === stock.selectedNumbers.length) {
           alert(`Você já escolheu ${stock.actualGameInfo.max_number} números!`);
         } else {
-          props.setSelectedNumbers((actual: number[]) => [...actual, num]);
+          dispatch(setSelectedNumbers([...stock.selectedNumbers, num]));
         }
       }
     }
@@ -41,7 +41,7 @@ const GameNumbers = (props: IGameNumbersProps) => {
       return (
         <ButtonNumber
           color={
-            props.selectedNumbers.includes(num)
+            stock.selectedNumbers.includes(num)
               ? stock.actualGameInfo.color
               : ''
           }
@@ -55,45 +55,44 @@ const GameNumbers = (props: IGameNumbersProps) => {
   }
 
   function clearGame() {
-    props.setSelectedNumbers([]);
+    dispatch(setSelectedNumbers([]));
   }
 
   function completeGame() {
-    if (props.selectedNumbers.length === stock.actualGameInfo.max_number) {
+    if (stock.selectedNumbers.length === stock.actualGameInfo.max_number) {
       alert(`Você já escolheu ${stock.actualGameInfo.max_number} números!`);
     } else {
       let randomNumbers: number[] = [];
       let total =
-        stock.actualGameInfo.max_number - props.selectedNumbers.length;
+        stock.actualGameInfo.max_number - stock.selectedNumbers.length;
       let range = stock.actualGameInfo.range;
 
       while (randomNumbers.length < total) {
         let random = Math.floor(Math.random() * range + 1);
 
         if (!randomNumbers.includes(random)) {
-          if (!props.selectedNumbers.includes(random)) {
+          if (!stock.selectedNumbers.includes(random)) {
             randomNumbers.push(random);
           }
         }
       }
-      props.setSelectedNumbers((actual: number[]) => [
-        ...actual,
-        ...randomNumbers,
-      ]);
+      dispatch(
+        setSelectedNumbers([...stock.selectedNumbers, ...randomNumbers])
+      );
     }
   }
 
   function handleAddToCart() {
-    if (props.selectedNumbers.length < stock.actualGameInfo.max_number) {
+    if (stock.selectedNumbers.length < stock.actualGameInfo.max_number) {
       alert(
         `Você precisa escolher mais ${
-          stock.actualGameInfo.max_number - props.selectedNumbers.length
+          stock.actualGameInfo.max_number - stock.selectedNumbers.length
         } número(s)`
       );
     } else {
       clearGame();
       props.setCartBetContent({
-        selectedNumbers: props.selectedNumbers,
+        selectedNumbers: stock.selectedNumbers,
         gameName: stock.actualGameInfo.type,
         gameColor: stock.actualGameInfo.color,
         gamePrice: stock.actualGameInfo.price,
