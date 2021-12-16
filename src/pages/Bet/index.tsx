@@ -7,19 +7,13 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import NotLogged from '../../components/NotLogged';
-import { addGamesInfo } from '../../store/Stock.store';
+import {
+  addGamesInfo,
+  setSelectedNumbers,
+  setActualGameInfo,
+} from '../../store/Stock.store';
 import { useDispatch } from 'react-redux';
 import api from '../../services/api';
-
-interface IActualGame {
-  id: number;
-  type: string;
-  description: string;
-  range: number;
-  price: number;
-  max_number: number;
-  color: string;
-}
 
 interface IBetContent {
   selectedNumbers: number[];
@@ -29,8 +23,7 @@ interface IBetContent {
 }
 
 const BetPage = () => {
-  const [actualGame, setActualGame] = useState<IActualGame>();
-  const [selectedNumbers, setSelectedNumbers] = useState([]);
+  // const [selectedNumbers, setSelectedNumbers] = useState([]);
   const [cartBetContent, setCartBetContent] = useState<IBetContent>();
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -45,7 +38,7 @@ const BetPage = () => {
       .get('/cart_games')
       .then((res) => {
         dispatch(addGamesInfo(res.data));
-        setActualGame(res.data.types[0]);
+        dispatch(setActualGameInfo(res.data.types[0]));
         setLoading(false);
       })
       .catch((error) => {
@@ -72,7 +65,8 @@ const BetPage = () => {
               <div>
                 <h2>NEW BET</h2>
                 <h3>
-                  FOR <GameName>{actualGame?.type.toUpperCase()}</GameName>
+                  FOR{' '}
+                  <GameName>{stock.actualGameInfo.type.toUpperCase()}</GameName>
                 </h3>
               </div>
 
@@ -80,29 +74,26 @@ const BetPage = () => {
                 <h4>Choose a game</h4>
               </div>
 
-              {stock.gamesInfo && actualGame ? (
-                <GameList
-                  actualGame={actualGame}
-                  setActualGame={setActualGame}
-                />
-              ) : (
-                ''
-              )}
+              {stock.gamesInfo && stock.actualGameInfo ? <GameList /> : ''}
 
               <div>
                 <h4>Fill your bet</h4>
-                <p>{actualGame?.description}</p>
+                <p>{stock.actualGameInfo.description}</p>
                 <p>
                   Números Selecionados:{' '}
-                  <span style={{ color: actualGame?.color, display: 'inline' }}>
+                  <span
+                    style={{
+                      color: stock.actualGameInfo.color,
+                      display: 'inline',
+                    }}
+                  >
                     {selectedNumbers.length}
                   </span>
                 </p>
               </div>
 
-              {actualGame && (
+              {stock.actualGameInfo && (
                 <GameNumbers
-                  actualGameInfo={actualGame}
                   setSelectedNumbers={setSelectedNumbers}
                   selectedNumbers={selectedNumbers}
                   setCartBetContent={setCartBetContent}

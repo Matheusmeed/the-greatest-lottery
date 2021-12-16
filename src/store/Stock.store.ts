@@ -1,77 +1,104 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export interface IActionUserInfo {
+type userType = { name: string; email: string; created_at: string };
+type tokenType = { token: string; type: string };
+
+type gameType = {
+  id: number;
+  type: string;
+  description: string;
+  range: number;
+  price: number;
+  max_number: number;
+  color: string;
+};
+
+export interface IUserInfo {
   payload: {
-    user: { name: string; email: string; created_at: string };
-    token: { token: string; type: string };
+    user: userType;
+    token: tokenType;
   };
 }
 
-export interface IActionGameList {
+export interface IGameList {
   payload: {
     min_cart_value: number;
-    types: [
-      {
-        id: number;
-        type: string;
-        description: string;
-        range: number;
-        price: number;
-        max_number: number;
-        color: string;
-      }
-    ];
+    types: [gameType];
   };
+}
+
+export interface IActualGameInfo {
+  payload: gameType;
+}
+
+export interface ISelectedNumbers {
+  payload: number[];
 }
 
 interface IInitialState {
   userInfo: {
-    user: { name: string; email: string; created_at: string };
-    token: { token: string; type: string };
+    user: userType;
+    token: tokenType;
   };
+
   gamesInfo: {
     min_cart_value: number;
-    types: [
-      {
-        id: number;
-        type: string;
-        description: string;
-        range: number;
-        price: number;
-        max_number: number;
-        color: string;
-      }
-    ];
+    types: [gameType];
   };
+
+  actualGameInfo: gameType;
+
+  selectedNumbers: number[];
 }
 
 const stock = createSlice({
   name: 'stock',
   initialState: {
     userInfo: {
-      user: { name: '', email: '', created_at: '' },
-      token: { token: '', type: '' },
+      user: {},
+      token: {},
     },
+
     gamesInfo: {
       min_cart_value: 0,
       types: [{}],
     },
+
+    actualGameInfo: {},
+
+    selectedNumbers: [0],
   } as IInitialState,
   reducers: {
-    saveUserInfo(state, action: IActionUserInfo) {
+    saveUserInfo(state, action: IUserInfo) {
       state.userInfo = action.payload;
     },
+
     removeUserInfo(state) {
       state.userInfo = {
         user: { name: '', email: '', created_at: '' },
         token: { token: '', type: '' },
       };
     },
-    addGamesInfo(state, action: IActionGameList) {
+
+    addGamesInfo(state, action: IGameList) {
       state.gamesInfo = action.payload;
+    },
+
+    setActualGameInfo(state, action: IActualGameInfo) {
+      state.actualGameInfo = action.payload;
+    },
+
+    setSelectedNumbers(state, action: ISelectedNumbers) {
+      state.selectedNumbers = action.payload;
     },
   },
 });
 
-export const { saveUserInfo, removeUserInfo, addGamesInfo } = stock.actions;
+export const {
+  saveUserInfo,
+  removeUserInfo,
+  addGamesInfo,
+  setActualGameInfo,
+  setSelectedNumbers,
+} = stock.actions;
 export default stock.reducer;
