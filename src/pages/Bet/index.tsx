@@ -7,22 +7,9 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import NotLogged from '../../components/NotLogged';
+import { addGamesInfo } from '../../store/Stock.store';
+import { useDispatch } from 'react-redux';
 import api from '../../services/api';
-
-interface IGameInfo {
-  min_cart_value: number;
-  types: [
-    {
-      id: number;
-      type: string;
-      description: string;
-      range: number;
-      price: number;
-      max_number: number;
-      color: string;
-    }
-  ];
-}
 
 interface IActualGame {
   id: number;
@@ -42,7 +29,6 @@ interface IBetContent {
 }
 
 const BetPage = () => {
-  const [gameInfo, setGameinfo] = useState<IGameInfo>();
   const [actualGame, setActualGame] = useState<IActualGame>();
   const [selectedNumbers, setSelectedNumbers] = useState([]);
   const [cartBetContent, setCartBetContent] = useState<IBetContent>();
@@ -50,6 +36,7 @@ const BetPage = () => {
   const [loading, setLoading] = useState(false);
   const [userLogged, setUserLogged] = useState(false);
 
+  const dispatch = useDispatch();
   const stock = useSelector((state: RootState) => state.stock);
 
   useEffect(() => {
@@ -57,7 +44,7 @@ const BetPage = () => {
     api
       .get('/cart_games')
       .then((res) => {
-        setGameinfo(res.data);
+        dispatch(addGamesInfo(res.data));
         setActualGame(res.data.types[0]);
         setLoading(false);
       })
@@ -93,11 +80,10 @@ const BetPage = () => {
                 <h4>Choose a game</h4>
               </div>
 
-              {gameInfo && actualGame ? (
+              {stock.gamesInfo && actualGame ? (
                 <GameList
                   actualGame={actualGame}
                   setActualGame={setActualGame}
-                  games={gameInfo?.types}
                 />
               ) : (
                 ''

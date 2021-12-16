@@ -1,15 +1,48 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export interface IAction {
+export interface IActionUserInfo {
   payload: {
     user: { name: string; email: string; created_at: string };
     token: { token: string; type: string };
   };
 }
 
-interface ICartGames {
-  min_cart_value: 30;
-  types: Object[];
+export interface IActionGameList {
+  payload: {
+    min_cart_value: number;
+    types: [
+      {
+        id: number;
+        type: string;
+        description: string;
+        range: number;
+        price: number;
+        max_number: number;
+        color: string;
+      }
+    ];
+  };
+}
+
+interface IInitialState {
+  userInfo: {
+    user: { name: string; email: string; created_at: string };
+    token: { token: string; type: string };
+  };
+  gamesInfo: {
+    min_cart_value: number;
+    types: [
+      {
+        id: number;
+        type: string;
+        description: string;
+        range: number;
+        price: number;
+        max_number: number;
+        color: string;
+      }
+    ];
+  };
 }
 
 const stock = createSlice({
@@ -19,13 +52,13 @@ const stock = createSlice({
       user: { name: '', email: '', created_at: '' },
       token: { token: '', type: '' },
     },
-    cartGames: {
+    gamesInfo: {
       min_cart_value: 0,
       types: [{}],
     },
-  },
+  } as IInitialState,
   reducers: {
-    saveUserInfo(state, action: IAction) {
+    saveUserInfo(state, action: IActionUserInfo) {
       state.userInfo = action.payload;
     },
     removeUserInfo(state) {
@@ -34,8 +67,11 @@ const stock = createSlice({
         token: { token: '', type: '' },
       };
     },
+    addGamesInfo(state, action: IActionGameList) {
+      state.gamesInfo = action.payload;
+    },
   },
 });
 
-export const { saveUserInfo, removeUserInfo } = stock.actions;
+export const { saveUserInfo, removeUserInfo, addGamesInfo } = stock.actions;
 export default stock.reducer;

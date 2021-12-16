@@ -1,3 +1,5 @@
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../store';
 import { Container, GameButton } from './styles';
 
 interface IGameList {
@@ -11,22 +13,13 @@ interface IGameList {
     color: string;
   };
   setActualGame: Function;
-  games: [
-    {
-      id: number;
-      type: string;
-      description: string;
-      range: number;
-      price: number;
-      max_number: number;
-      color: string;
-    }
-  ];
 }
 
 const GameList = (props: IGameList) => {
+  const stock = useSelector((state: RootState) => state.stock);
+
   function renderGames() {
-    return props.games.map((el) => {
+    return stock.gamesInfo.types.map((el) => {
       if (el.id === props.actualGame.id) {
         return (
           <GameButton theme={el.color} key={el.id}>
