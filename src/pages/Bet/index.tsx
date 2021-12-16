@@ -7,11 +7,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import NotLogged from '../../components/NotLogged';
-import {
-  addGamesInfo,
-  setSelectedNumbers,
-  setActualGameInfo,
-} from '../../store/Stock.store';
+import { addGamesInfo, setActualGameInfo } from '../../store/Stock.store';
 import { useDispatch } from 'react-redux';
 import api from '../../services/api';
 
@@ -23,7 +19,6 @@ interface IBetContent {
 }
 
 const BetPage = () => {
-  // const [selectedNumbers, setSelectedNumbers] = useState([]);
   const [cartBetContent, setCartBetContent] = useState<IBetContent>();
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -93,11 +88,7 @@ const BetPage = () => {
               </div>
 
               {stock.actualGameInfo && (
-                <GameNumbers
-                  // setSelectedNumbers={setSelectedNumbers}
-                  // selectedNumbers={selectedNumbers}
-                  setCartBetContent={setCartBetContent}
-                />
+                <GameNumbers setCartBetContent={setCartBetContent} />
               )}
             </div>
             <Cart cartBetContent={cartBetContent} />

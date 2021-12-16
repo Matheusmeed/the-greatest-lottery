@@ -13,26 +13,41 @@ type gameType = {
   color: string;
 };
 
-export interface IUserInfo {
+// Tipagem das Actions
+
+export interface IUserInfoAction {
   payload: {
     user: userType;
     token: tokenType;
   };
 }
 
-export interface IGameList {
+export interface IGameListAction {
   payload: {
     min_cart_value: number;
     types: [gameType];
   };
 }
 
-export interface IActualGameInfo {
+export interface IActualGameInfoAction {
   payload: gameType;
 }
 
-export interface ISelectedNumbers {
+export interface ISelectedNumbersAction {
   payload: number[];
+}
+
+export interface IBetContentAction {
+  payload: IBetContent;
+}
+
+//Tipagens para o InitialState
+
+export interface IBetContent {
+  selectedNumbers: number[];
+  gameName: string;
+  gameColor: string;
+  gamePrice: number;
 }
 
 interface IInitialState {
@@ -49,6 +64,8 @@ interface IInitialState {
   actualGameInfo: gameType;
 
   selectedNumbers: number[];
+
+  cartBetContent: IBetContent;
 }
 
 const stock = createSlice({
@@ -67,9 +84,11 @@ const stock = createSlice({
     actualGameInfo: {},
 
     selectedNumbers: [0],
+
+    cartBetContent: {},
   } as IInitialState,
   reducers: {
-    saveUserInfo(state, action: IUserInfo) {
+    saveUserInfo(state, action: IUserInfoAction) {
       state.userInfo = action.payload;
     },
 
@@ -80,16 +99,20 @@ const stock = createSlice({
       };
     },
 
-    addGamesInfo(state, action: IGameList) {
+    addGamesInfo(state, action: IGameListAction) {
       state.gamesInfo = action.payload;
     },
 
-    setActualGameInfo(state, action: IActualGameInfo) {
+    setActualGameInfo(state, action: IActualGameInfoAction) {
       state.actualGameInfo = action.payload;
     },
 
-    setSelectedNumbers(state, action: ISelectedNumbers) {
+    setSelectedNumbers(state, action: ISelectedNumbersAction) {
       state.selectedNumbers = action.payload;
+    },
+
+    setCartBetContent(state, action: IBetContentAction) {
+      state.cartBetContent = action.payload;
     },
   },
 });

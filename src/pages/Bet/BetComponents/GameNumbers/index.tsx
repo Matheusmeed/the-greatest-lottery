@@ -16,7 +16,7 @@ const GameNumbers = (props: IGameNumbersProps) => {
 
   useEffect(() => {
     dispatch(setSelectedNumbers([]));
-  }, [stock.actualGameInfo]);
+  }, [stock.actualGameInfo, dispatch]);
 
   function renderNumbers() {
     for (let i = 1; i <= stock.actualGameInfo.range; i++) {
