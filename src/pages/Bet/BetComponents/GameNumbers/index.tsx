@@ -7,6 +7,7 @@ import {
   setSelectedNumbers,
 } from '../../../../store/Stock.store';
 import { RootState } from '../../../../store';
+import { store } from 'react-notifications-component';
 
 const GameNumbers = () => {
   let numbers: number[] = [];
@@ -29,7 +30,18 @@ const GameNumbers = () => {
         dispatch(setSelectedNumbers([...newArray]));
       } else {
         if (stock.actualGameInfo.max_number === stock.selectedNumbers.length) {
-          alert(`Você já escolheu ${stock.actualGameInfo.max_number} números!`);
+          store.addNotification({
+            message: `Você já escolheu ${stock.actualGameInfo.max_number} números!`,
+            type: 'info',
+            container: 'top-center',
+            insert: 'top',
+            animationIn: ['animated', 'fadeIn'],
+            animationOut: ['animated', 'fadeOut'],
+            dismiss: {
+              duration: 3000,
+              showIcon: true,
+            },
+          });
         } else {
           dispatch(setSelectedNumbers([...stock.selectedNumbers, num]));
         }
@@ -59,7 +71,18 @@ const GameNumbers = () => {
 
   function completeGame() {
     if (stock.selectedNumbers.length === stock.actualGameInfo.max_number) {
-      alert(`Você já escolheu ${stock.actualGameInfo.max_number} números!`);
+      store.addNotification({
+        message: `Você já escolheu ${stock.actualGameInfo.max_number} números!`,
+        type: 'info',
+        container: 'top-center',
+        insert: 'top',
+        animationIn: ['animated', 'fadeIn'],
+        animationOut: ['animated', 'fadeOut'],
+        dismiss: {
+          duration: 3000,
+          showIcon: true,
+        },
+      });
     } else {
       let randomNumbers: number[] = [];
       let total =
@@ -83,11 +106,20 @@ const GameNumbers = () => {
 
   function handleAddToCart() {
     if (stock.selectedNumbers.length < stock.actualGameInfo.max_number) {
-      alert(
-        `Você precisa escolher mais ${
+      store.addNotification({
+        message: `Você precisa escolher mais ${
           stock.actualGameInfo.max_number - stock.selectedNumbers.length
-        } número(s)`
-      );
+        } número(s)`,
+        type: 'info',
+        container: 'top-center',
+        insert: 'top',
+        animationIn: ['animated', 'fadeIn'],
+        animationOut: ['animated', 'fadeOut'],
+        dismiss: {
+          duration: 3000,
+          showIcon: true,
+        },
+      });
     } else {
       clearGame();
       dispatch(

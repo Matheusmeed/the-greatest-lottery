@@ -8,6 +8,7 @@ import { useState } from 'react';
 import api from '../../../services/api';
 import { useDispatch } from 'react-redux';
 import { saveUserInfo } from '../../../store/Stock.store';
+import { store } from 'react-notifications-component';
 
 const RegistrationPage = () => {
   const navigate = useNavigate();
@@ -52,7 +53,18 @@ const RegistrationPage = () => {
     event?.preventDefault();
 
     if (!name || !pass || !email || errorEmail || errorPass || errorName) {
-      alert('Preencha todos os campos corretamente!');
+      store.addNotification({
+        message: 'Preencha todos os campos corretamente!',
+        type: 'warning',
+        container: 'top-center',
+        insert: 'top',
+        animationIn: ['animated', 'fadeIn'],
+        animationOut: ['animated', 'fadeOut'],
+        dismiss: {
+          duration: 3000,
+          showIcon: true,
+        },
+      });
     } else {
       api
         .post('/user/create', {
@@ -61,11 +73,36 @@ const RegistrationPage = () => {
           password: pass.trim(),
         })
         .then((res) => {
+          store.addNotification({
+            message: 'Conta criada com sucesso!',
+            type: 'success',
+            container: 'top-center',
+            insert: 'top',
+            animationIn: ['animated', 'fadeIn'],
+            animationOut: ['animated', 'fadeOut'],
+            dismiss: {
+              duration: 2000,
+              showIcon: true,
+            },
+          });
           dispatch(saveUserInfo(res.data));
           navigate('/bet');
           console.log(res);
         })
-        .catch((error) => alert('Esse email já existe!'));
+        .catch((error) =>
+          store.addNotification({
+            message: 'Esse email já existe!',
+            type: 'danger',
+            container: 'top-center',
+            insert: 'top',
+            animationIn: ['animated', 'fadeIn'],
+            animationOut: ['animated', 'fadeOut'],
+            dismiss: {
+              duration: 4000,
+              showIcon: true,
+            },
+          })
+        );
     }
   }
 

@@ -6,6 +6,7 @@ import setaDireita from '../../../images/seta-direita.png';
 import { ImagemInvertida } from './styles';
 import { ErrorDiv } from '../style';
 import { useState } from 'react';
+import { store } from 'react-notifications-component';
 
 const ResetPassword = () => {
   const navigate = useNavigate();
@@ -26,6 +27,38 @@ const ResetPassword = () => {
     }
   }
 
+  function handleSubmit(e: { preventDefault: () => void }) {
+    e.preventDefault();
+
+    if (errorEmail || !email) {
+      store.addNotification({
+        message: 'Preencha o seu email corretamente!',
+        type: 'warning',
+        container: 'top-center',
+        insert: 'top',
+        animationIn: ['animated', 'fadeIn'],
+        animationOut: ['animated', 'fadeOut'],
+        dismiss: {
+          duration: 4000,
+          showIcon: true,
+        },
+      });
+    } else {
+      store.addNotification({
+        message: 'Enviado com sucesso!',
+        type: 'success',
+        container: 'top-center',
+        insert: 'top',
+        animationIn: ['animated', 'fadeIn'],
+        animationOut: ['animated', 'fadeOut'],
+        dismiss: {
+          duration: 4000,
+          showIcon: true,
+        },
+      });
+    }
+  }
+
   return (
     <>
       <Container>
@@ -34,7 +67,7 @@ const ResetPassword = () => {
         </div>
         <div>
           <h1>Authentication</h1>
-          <form action=''>
+          <form onSubmit={handleSubmit}>
             <div>
               <input
                 type='email'
@@ -52,7 +85,7 @@ const ResetPassword = () => {
               </ErrorDiv>
             )}
             <div>
-              <button type='submit' value='Log In'>
+              <button type='submit'>
                 Send Link <img src={setaDireitaVerde} alt='send link' />
               </button>
             </div>
@@ -68,3 +101,6 @@ const ResetPassword = () => {
 };
 
 export default ResetPassword;
+function e(e: any): void {
+  throw new Error('Function not implemented.');
+}

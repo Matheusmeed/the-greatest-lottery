@@ -9,6 +9,7 @@ import api from '../../../services/api';
 
 import { useDispatch } from 'react-redux';
 import { saveUserInfo } from '../../../store/Stock.store';
+import { store } from 'react-notifications-component';
 
 const AuthPage = () => {
   const navigate = useNavigate();
@@ -34,17 +35,41 @@ const AuthPage = () => {
   }
 
   function logIn(e: { preventDefault: () => void }) {
+    e.preventDefault();
     if (errorEmail || !pass || !email) {
-      alert('Você deve preencher todos os campos');
+      store.addNotification({
+        message: 'Você deve preencher todos os campos corretamente',
+        type: 'warning',
+        container: 'top-center',
+        insert: 'top',
+        animationIn: ['animated', 'fadeIn'],
+        animationOut: ['animated', 'fadeOut'],
+        dismiss: {
+          duration: 4000,
+          showIcon: true,
+        },
+      });
     } else {
-      e.preventDefault();
       api
         .post('/login', { email: email.trim(), password: pass.trim() })
         .then((res) => {
           dispatch(saveUserInfo(res.data));
           navigate('/bet');
         })
-        .catch((err) => alert('Conta inválida...'));
+        .catch((err) =>
+          store.addNotification({
+            message: 'Conta inválida...',
+            type: 'danger',
+            container: 'top-center',
+            insert: 'top',
+            animationIn: ['animated', 'fadeIn'],
+            animationOut: ['animated', 'fadeOut'],
+            dismiss: {
+              duration: 4000,
+              showIcon: true,
+            },
+          })
+        );
     }
   }
 

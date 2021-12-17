@@ -123,11 +123,19 @@ const stock = createSlice({
     },
 
     setSelectedNumbers(state, action: ISelectedNumbersAction) {
-      state.selectedNumbers = action.payload;
+      state.selectedNumbers = action.payload.sort((a, b) => a - b);
     },
 
     setCartBetContent(state, action: IBetContentAction) {
       state.cartBetContent = action.payload;
+    },
+    clearCartBetContent(state) {
+      state.cartBetContent = {
+        gameColor: '',
+        gameName: '',
+        gamePrice: 0,
+        selectedNumbers: [],
+      };
     },
 
     setBetList(state, action: IbetListAction) {
@@ -149,5 +157,6 @@ export const {
   setCartBetContent,
   setBetList,
   clearBetList,
+  clearCartBetContent,
 } = stock.actions;
 export default stock.reducer;
