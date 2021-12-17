@@ -4,7 +4,7 @@ import { ForgotPass } from './style';
 import { useNavigate } from 'react-router';
 import setaDireitaVerde from '../../../images/seta-direita-verde-musgo.png';
 import setaDireita from '../../../images/seta-direita.png';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import api from '../../../services/api';
 
 import { useDispatch } from 'react-redux';
@@ -28,11 +28,11 @@ const AuthPage = () => {
     }
   }
 
-  function isRight() {
+  useEffect(() => {
     if (emailRegex.test(email)) {
       setEmailError(false);
     }
-  }
+  }, [email, emailRegex]);
 
   function logIn(e: { preventDefault: () => void }) {
     e.preventDefault();
@@ -87,7 +87,6 @@ const AuthPage = () => {
               placeholder='Email'
               onChange={(el) => {
                 setEmail(el.target.value);
-                isRight();
               }}
               onBlur={() => check()}
             />

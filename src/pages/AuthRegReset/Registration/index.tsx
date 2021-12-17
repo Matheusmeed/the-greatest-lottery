@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import setaDireitaVerde from '../../../images/seta-direita-verde-musgo.png';
 import setaDireita from '../../../images/seta-direita.png';
 import { ImagemInvertida } from '../ResetPassword/styles';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import api from '../../../services/api';
 import { useDispatch } from 'react-redux';
 import { saveUserInfo } from '../../../store/Stock.store';
@@ -37,7 +37,7 @@ const RegistrationPage = () => {
     }
   }
 
-  function isRight() {
+  useEffect(() => {
     if (emailRegex.test(email)) {
       setEmailError(false);
     }
@@ -47,7 +47,7 @@ const RegistrationPage = () => {
     if (nameRegex.test(name)) {
       setNameError(false);
     }
-  }
+  }, [email, pass, name]);
 
   function handleRegistration(event: { preventDefault: () => void }) {
     event?.preventDefault();
@@ -121,7 +121,7 @@ const RegistrationPage = () => {
                 placeholder='Nome'
                 onChange={(el) => {
                   setName(el.target.value);
-                  isRight();
+                  // isRight();
                 }}
                 onBlur={() => check()}
               />
@@ -138,7 +138,7 @@ const RegistrationPage = () => {
                 placeholder='Email'
                 onChange={(el) => {
                   setEmail(el.target.value);
-                  isRight();
+                  // isRight();
                 }}
                 onBlur={() => check()}
               />
@@ -154,7 +154,7 @@ const RegistrationPage = () => {
                 placeholder='Password'
                 onChange={(el) => {
                   setPass(el.target.value);
-                  isRight();
+                  // isRight();
                 }}
                 onBlur={() => check()}
               />

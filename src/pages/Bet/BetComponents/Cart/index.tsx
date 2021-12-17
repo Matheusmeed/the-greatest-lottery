@@ -10,6 +10,11 @@ import {
 } from '../../../../store/Stock.store';
 import { RootState } from '../../../../store';
 import { store } from 'react-notifications-component';
+import api from '../../../../services/api';
+import { BetInfoDiv } from '../../../Mybets/styles';
+import { EINPROGRESS } from 'constants';
+
+type gamesType = [{ id: number; numbers: number[] }];
 
 const Cart = () => {
   const stock = useSelector((state: RootState) => state.stock);
@@ -76,6 +81,64 @@ const Cart = () => {
     return total.toLocaleString('pt-br', { minimumFractionDigits: 2 });
   }
 
+  function handleSave() {
+    if (stock.betList.length === 1) {
+      store.addNotification({
+        title: 'Seu carrinho está vazio!.',
+        message: 'Adicione suas apostas para poder salvá-las',
+        type: 'danger',
+        container: 'top-center',
+        insert: 'top',
+        animationIn: ['animated', 'fadeIn'],
+        animationOut: ['animated', 'fadeOut'],
+        dismiss: {
+          duration: 3000,
+          showIcon: true,
+        },
+      });
+    } else {
+      const games: gamesType = [{ id: 0, numbers: [] }];
+
+      stock.betList.forEach((bet) => {
+        if (bet.gameName) {
+          stock.gamesInfo.types.forEach((game) => {
+            if (bet.gameName === game.type) {
+              games.push({ id: game.id, numbers: bet.selectedNumbers });
+            }
+          });
+        }
+      });
+      games.shift();
+      api
+        .post(
+          '/bet/new-bet',
+          { games: games },
+          {
+            headers: { Authorization: `Bearer ${stock.userInfo.token.token}` },
+          }
+        )
+        .then((res) => console.log(res))
+        .catch((error) =>
+          error.response
+            ? store.addNotification({
+                title: 'ERRO',
+                message: `O valor mínimo autorizado é R$${stock.gamesInfo.min_cart_value},00!`,
+                type: 'danger',
+                container: 'top-center',
+                insert: 'top',
+                animationIn: ['animated', 'fadeIn'],
+                animationOut: ['animated', 'fadeOut'],
+                dismiss: {
+                  duration: 4000,
+                  showIcon: true,
+                },
+              })
+            : alert('Aconteceu algum erro :(')
+        );
+      console.log(games);
+    }
+  }
+
   return (
     <CartDiv>
       <h2>CART</h2>
@@ -116,7 +179,7 @@ const Cart = () => {
         <h3>TOTAL: R$ {stock.betList.length ? total() : '0,00'}</h3>
       </div>
       <DivSave>
-        <button>
+        <button onClick={handleSave}>
           Save <img src={setaVerde} alt='Save' />
         </button>
       </DivSave>

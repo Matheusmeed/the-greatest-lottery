@@ -7,21 +7,6 @@ export const Container = styled.div`
   margin-left: 70px;
   margin-right: 95px;
   margin-top: 40px;
-
-  div button {
-    background: red;
-    color: #b5c401;
-    font-size: 1.2em;
-    border: none;
-    display: inline-flex;
-    align-items: center;
-    background: none;
-  }
-
-  div button img {
-    width: 20px;
-    margin-left: 10px;
-  }
 `;
 
 export const FilterGameDiv = styled.div`
@@ -42,18 +27,20 @@ export const FilterGameDiv = styled.div`
     display: inline;
     justify-content: space-between;
   }
+`;
 
-  div button {
-    background-color: #f7f7f7;
-    border: 3px solid red;
-    border-radius: 20px;
-    padding: 4px;
-    padding-right: 20px;
-    padding-left: 20px;
+export const NewBetBtn = styled.button`
+  background: red;
+  color: #b5c401;
+  font-size: 1.2em;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  background: none;
+
+  img {
+    width: 20px;
     margin-left: 10px;
-    margin-right: 10px;
-    color: red;
-    font-size: 0.9em;
   }
 `;
 

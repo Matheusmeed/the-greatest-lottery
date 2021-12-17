@@ -83,6 +83,7 @@ interface IInitialState {
 
 const stock = createSlice({
   name: 'stock',
+
   initialState: {
     userInfo: {
       user: {},
@@ -123,7 +124,8 @@ const stock = createSlice({
     },
 
     setSelectedNumbers(state, action: ISelectedNumbersAction) {
-      state.selectedNumbers = action.payload.sort((a, b) => a - b);
+      let arr = [...action.payload];
+      state.selectedNumbers = arr.sort((a, b) => a - b);
     },
 
     setCartBetContent(state, action: IBetContentAction) {
@@ -159,4 +161,5 @@ export const {
   clearBetList,
   clearCartBetContent,
 } = stock.actions;
+
 export default stock.reducer;

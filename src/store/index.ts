@@ -4,6 +4,7 @@ import stockReducer from './Stock.store';
 const store = configureStore({
   reducer: {
     stock: stockReducer,
+    userStock: stockReducer,
   },
 });
 

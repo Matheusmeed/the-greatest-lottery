@@ -2,8 +2,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../store';
 import { Container, GameButton } from './styles';
 import { setActualGameInfo } from '../../../../store/Stock.store';
+import api from '../../../../services/api';
 
-const GameList = () => {
+interface IGameListProps {
+  filter: boolean;
+}
+
+const GameList = (props: IGameListProps) => {
   const stock = useSelector((state: RootState) => state.stock);
   const dispatch = useDispatch();
 
@@ -18,7 +23,13 @@ const GameList = () => {
       } else {
         return (
           <GameButton
-            onClick={() => dispatch(setActualGameInfo(el))}
+            onClick={() => {
+              if (props.filter) {
+                dispatch(setActualGameInfo(el));
+              } else {
+                dispatch(setActualGameInfo(el));
+              }
+            }}
             color={el.color}
             key={el.id}
           >

@@ -61,7 +61,11 @@ const BetPage = () => {
                 <h4>Choose a game</h4>
               </div>
 
-              {stock.gamesInfo && stock.actualGameInfo ? <GameList /> : ''}
+              {stock.gamesInfo && stock.actualGameInfo ? (
+                <GameList filter={false} />
+              ) : (
+                ''
+              )}
 
               <div>
                 <h4>Fill your bet</h4>

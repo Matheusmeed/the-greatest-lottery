@@ -1,5 +1,5 @@
 import Header from '../../components/Header';
-import { Container, FilterGameDiv, BetInfoDiv } from './styles';
+import { Container, FilterGameDiv, BetInfoDiv, NewBetBtn } from './styles';
 import seta from '../../images/seta-direita-verde-musgo.png';
 import GameList from '../Bet/BetComponents/GamesList';
 import { useEffect, useState } from 'react';
@@ -10,35 +10,27 @@ import NotLogged from '../../components/NotLogged';
 import api from '../../services/api';
 import { GameButton } from '../Bet/BetComponents/GamesList/styles';
 
-interface ICartGames {
-  min_cart_value: number;
-  types: [
-    {
-      id: number;
-      type: string;
-      description: string;
-      range: number;
-      price: number;
-      max_number: number;
-      color: string;
-    }
-  ];
-}
-
 const MyBetsPage = () => {
   const navigate = useNavigate();
-  const [cartGames, setCartGames] = useState<ICartGames>();
   const [userLogged, setUserLogged] = useState(false);
+  const [savedBets, setSavedBets] = useState([]);
 
   const stock = useSelector((state: RootState) => state.stock);
 
   useEffect(() => {
-    api.get('/cart_games').then((res) => setCartGames(res.data));
-  }, []);
-
-  useEffect(() => {
     stock.userInfo.token.token ? setUserLogged(true) : setUserLogged(false);
   }, [stock]);
+
+  useEffect(() => {
+    api
+      .get(`/bet/all-bets?type%5B%5D=${stock.actualGameInfo.type}`, {
+        headers: {
+          Authorization: `Bearer ${stock.userInfo.token.token}`,
+        },
+      })
+      .then((res) => setSavedBets(res.data))
+      .catch((error) => alert('Ocorreu algum erro!'));
+  }, [stock.actualGameInfo, stock.userInfo.token.token]);
 
   return (
     <>
@@ -52,17 +44,29 @@ const MyBetsPage = () => {
                 <h3>RECENT GAMES</h3>
               </div>
               <h4>Filters</h4>
-              {/* {cartGames && <GameList games={cartGames.types} />} */}
+              {stock.gamesInfo && <GameList filter={true} />}
             </FilterGameDiv>
 
             <div>
-              <button onClick={() => navigate('/bet')}>
+              <NewBetBtn onClick={() => navigate('/bet')}>
                 New Bet <img src={seta} alt='nova aposta' />
-              </button>
+              </NewBetBtn>
             </div>
           </Container>
           <BetInfoDiv>
-            <div>
+            {savedBets
+              ? savedBets.map((bet) => {
+                  return (
+                    <div>
+                      <h3>1, 2, 3, 54</h3>
+                      <h5>30/11/2021 - 50 reais</h5>
+                      <h4>Lotofácil</h4>
+                    </div>
+                  );
+                })
+              : ''}
+
+            {/* <div>
               <h3>01, 02, 03, 04, 05, 06</h3>
               <h5>30/11/2021 - 50 reais</h5>
               <h4>Lotofácil</h4>
@@ -71,22 +75,7 @@ const MyBetsPage = () => {
               <h3>01, 02, 03, 04, 05, 06</h3>
               <h5>30/11/2021 - 50 reais</h5>
               <h4>Lotofácil</h4>
-            </div>
-            <div>
-              <h3>01, 02, 03, 04, 05, 06</h3>
-              <h5>30/11/2021 - 50 reais</h5>
-              <h4>Lotofácil</h4>
-            </div>
-            <div>
-              <h3>01, 02, 03, 04, 05, 06</h3>
-              <h5>30/11/2021 - 50 reais</h5>
-              <h4>Lotofácil</h4>
-            </div>
-            <div>
-              <h3>01, 02, 03, 04, 05, 06</h3>
-              <h5>30/11/2021 - 50 reais</h5>
-              <h4>Lotofácil</h4>
-            </div>
+            </div> */}
           </BetInfoDiv>
         </>
       ) : (
