@@ -4,8 +4,9 @@ import AuthPage from './pages/AuthRegReset/Auth';
 import RegistrationPage from './pages/AuthRegReset/Registration';
 import MyBetsPage from './pages/Mybets';
 import BetPage from './pages/Bet';
-import ResetPassword from './pages/AuthRegReset/ResetPassword';
+import ForgotPass from './pages/AuthRegReset/ForgotPass';
 import Account from './pages/Account';
+import ResetPass from './pages/AuthRegReset/ResetPass';
 
 const Routes: React.FC = () => {
   return (
@@ -16,7 +17,8 @@ const Routes: React.FC = () => {
         <Route path='/mybets' element={<MyBetsPage />} />
         <Route path='/bet' element={<BetPage />} />
         <Route path='/account' element={<Account />} />
-        <Route path='/resetpassword' element={<ResetPassword />} />
+        <Route path='/forgotpass' element={<ForgotPass />} />
+        <Route path='/resetpass' element={<ResetPass />} />
       </Switch>
     </BrowserRouter>
   );

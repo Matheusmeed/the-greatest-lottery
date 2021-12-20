@@ -1,5 +1,11 @@
 import Header from '../../components/Header';
-import { Container, FilterGameDiv, BetInfoDiv, NewBetBtn } from './styles';
+import {
+  Container,
+  FilterGameDiv,
+  BetInfoDiv,
+  NewBetBtn,
+  OwnBet,
+} from './styles';
 import seta from '../../images/seta-direita-verde-musgo.png';
 import GameList from '../Bet/BetComponents/GamesList';
 import { useEffect, useState } from 'react';
@@ -8,12 +14,25 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import NotLogged from '../../components/NotLogged';
 import api from '../../services/api';
-import { GameButton } from '../Bet/BetComponents/GamesList/styles';
+
+interface ISavedBets {
+  choosen_numbers: string;
+  created_at: string;
+  price: number;
+
+  id: number;
+  type: {
+    id: number;
+    type: string;
+  };
+}
+
+type savedBets = ISavedBets[];
 
 const MyBetsPage = () => {
   const navigate = useNavigate();
   const [userLogged, setUserLogged] = useState(false);
-  const [savedBets, setSavedBets] = useState([]);
+  const [savedBets, setSavedBets] = useState<savedBets>([]);
 
   const stock = useSelector((state: RootState) => state.stock);
 
@@ -22,14 +41,29 @@ const MyBetsPage = () => {
   }, [stock]);
 
   useEffect(() => {
-    api
-      .get(`/bet/all-bets?type%5B%5D=${stock.actualGameInfo.type}`, {
-        headers: {
-          Authorization: `Bearer ${stock.userInfo.token.token}`,
-        },
-      })
-      .then((res) => setSavedBets(res.data))
-      .catch((error) => alert('Ocorreu algum erro!'));
+    if (stock.actualGameInfo.type) {
+      api
+        .get(
+          `/bet/all-bets?type%5B%5D=${stock.actualGameInfo.type}` ||
+            `/bet/all-bets`,
+          {
+            headers: {
+              Authorization: `Bearer ${stock.userInfo.token.token}`,
+            },
+          }
+        )
+        .then((res) => setSavedBets(res.data.reverse()))
+        .catch((error) => alert('Ocorreu algum erro!'));
+    } else {
+      api
+        .get(`/bet/all-bets`, {
+          headers: {
+            Authorization: `Bearer ${stock.userInfo.token.token}`,
+          },
+        })
+        .then((res) => setSavedBets(res.data.reverse()))
+        .catch((error) => alert('Ocorreu algum erro!'));
+    }
   }, [stock.actualGameInfo, stock.userInfo.token.token]);
 
   return (
@@ -56,26 +90,36 @@ const MyBetsPage = () => {
           <BetInfoDiv>
             {savedBets
               ? savedBets.map((bet) => {
-                  return (
-                    <div>
-                      <h3>1, 2, 3, 54</h3>
-                      <h5>30/11/2021 - 50 reais</h5>
-                      <h4>Lotofácil</h4>
-                    </div>
+                  let color;
+                  stock.gamesInfo.types.map((el) => {
+                    if (bet.type.type === el.type) {
+                      color = el.color;
+                    }
+                  });
+
+                  let choosenNumbers = bet.choosen_numbers.replace(/,/g, ', ');
+                  let price = bet.price.toLocaleString('pt-br', {
+                    style: 'currency',
+                    currency: 'BRL',
+                  });
+                  let data = new Date(bet.created_at).toLocaleDateString(
+                    'pt-BR',
+                    { timeZone: 'UTC' }
                   );
+
+                  if (bet.type.type) {
+                    return (
+                      <OwnBet key={bet.id} color={color}>
+                        <h3>{choosenNumbers}</h3>
+                        <h5>
+                          {data} - ({price})
+                        </h5>
+                        <h4>{bet.type.type}</h4>
+                      </OwnBet>
+                    );
+                  } else return '';
                 })
               : ''}
-
-            {/* <div>
-              <h3>01, 02, 03, 04, 05, 06</h3>
-              <h5>30/11/2021 - 50 reais</h5>
-              <h4>Lotofácil</h4>
-            </div>
-            <div>
-              <h3>01, 02, 03, 04, 05, 06</h3>
-              <h5>30/11/2021 - 50 reais</h5>
-              <h4>Lotofácil</h4>
-            </div> */}
           </BetInfoDiv>
         </>
       ) : (

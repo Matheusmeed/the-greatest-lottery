@@ -6,11 +6,15 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import NotLogged from '../../components/NotLogged';
 import { useEffect, useState } from 'react';
+import ModalName from '../../components/Modals/ModalName';
+import ModalPass from '../../components/Modals/ModalPass';
 
 const Account = () => {
   const stock = useSelector((state: RootState) => state.stock);
 
   const [logged, setLogged] = useState(false);
+  const [modalName, setModalName] = useState(false);
+  const [modalPass, setModalPass] = useState(false);
 
   const name = stock.userInfo.user.name;
   const email = stock.userInfo.user.email;
@@ -32,12 +36,19 @@ const Account = () => {
             <div>Nome: {name}</div>
             <div>Email: {email}</div>
             <div>Conta criada em: {date}</div>
+
+            <div>
+              <button onClick={() => setModalName(true)}>Alterar nome</button>
+              <button onClick={() => setModalPass(true)}>Alterar senha</button>
+            </div>
           </Info>
           <div>
             <Title />
           </div>
         </Container>
       )}
+      {modalName && <ModalName setModalName={setModalName} />}
+      {modalPass && <ModalPass setModalPass={setModalPass} />}
     </>
   );
 };

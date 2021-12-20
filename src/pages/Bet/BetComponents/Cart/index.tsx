@@ -9,10 +9,8 @@ import {
   setBetList,
 } from '../../../../store/Stock.store';
 import { RootState } from '../../../../store';
-import { store } from 'react-notifications-component';
 import api from '../../../../services/api';
-import { BetInfoDiv } from '../../../Mybets/styles';
-import { EINPROGRESS } from 'constants';
+import { Notification } from '../../../../components/Notification';
 
 type gamesType = [{ id: number; numbers: number[] }];
 
@@ -37,18 +35,10 @@ const Cart = () => {
         dispatch(clearCartBetContent());
       });
       if (retorno) {
-        store.addNotification({
-          title: 'ERRO',
+        Notification({
+          title: 'Erro',
           message: 'Essa aposta já foi adicionada ao carrinho!',
           type: 'danger',
-          container: 'top-center',
-          insert: 'top',
-          animationIn: ['animated', 'fadeIn'],
-          animationOut: ['animated', 'fadeOut'],
-          dismiss: {
-            duration: 4000,
-            showIcon: true,
-          },
         });
       } else {
         dispatch(setBetList(stock.cartBetContent));
@@ -83,18 +73,10 @@ const Cart = () => {
 
   function handleSave() {
     if (stock.betList.length === 1) {
-      store.addNotification({
+      Notification({
         title: 'Seu carrinho está vazio!.',
         message: 'Adicione suas apostas para poder salvá-las',
         type: 'danger',
-        container: 'top-center',
-        insert: 'top',
-        animationIn: ['animated', 'fadeIn'],
-        animationOut: ['animated', 'fadeOut'],
-        dismiss: {
-          duration: 3000,
-          showIcon: true,
-        },
       });
     } else {
       const games: gamesType = [{ id: 0, numbers: [] }];
@@ -117,25 +99,27 @@ const Cart = () => {
             headers: { Authorization: `Bearer ${stock.userInfo.token.token}` },
           }
         )
-        .then((res) => console.log(res))
+        .then((res) => {
+          Notification({
+            title: '',
+            message: 'Suas apostas foram salvas!',
+            type: 'success',
+          });
+          dispatch(clearBetList([{}]));
+        })
         .catch((error) =>
           error.response
-            ? store.addNotification({
-                title: 'ERRO',
+            ? Notification({
+                title: 'Erro',
                 message: `O valor mínimo autorizado é R$${stock.gamesInfo.min_cart_value},00!`,
                 type: 'danger',
-                container: 'top-center',
-                insert: 'top',
-                animationIn: ['animated', 'fadeIn'],
-                animationOut: ['animated', 'fadeOut'],
-                dismiss: {
-                  duration: 4000,
-                  showIcon: true,
-                },
               })
-            : alert('Aconteceu algum erro :(')
+            : Notification({
+                title: '',
+                message: 'Aconteceu algum erro :(',
+                type: 'danger',
+              })
         );
-      console.log(games);
     }
   }
 

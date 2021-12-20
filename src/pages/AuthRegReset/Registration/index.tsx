@@ -3,12 +3,12 @@ import Title from '../../../components/Title';
 import { useNavigate } from 'react-router';
 import setaDireitaVerde from '../../../images/seta-direita-verde-musgo.png';
 import setaDireita from '../../../images/seta-direita.png';
-import { ImagemInvertida } from '../ResetPassword/styles';
+import { ImagemInvertida } from '../ForgotPass/styles';
 import { useEffect, useState } from 'react';
 import api from '../../../services/api';
 import { useDispatch } from 'react-redux';
 import { saveUserInfo } from '../../../store/Stock.store';
-import { store } from 'react-notifications-component';
+import { Notification } from '../../../components/Notification';
 
 const RegistrationPage = () => {
   const navigate = useNavigate();
@@ -53,17 +53,10 @@ const RegistrationPage = () => {
     event?.preventDefault();
 
     if (!name || !pass || !email || errorEmail || errorPass || errorName) {
-      store.addNotification({
+      Notification({
+        title: '',
         message: 'Preencha todos os campos corretamente!',
         type: 'warning',
-        container: 'top-center',
-        insert: 'top',
-        animationIn: ['animated', 'fadeIn'],
-        animationOut: ['animated', 'fadeOut'],
-        dismiss: {
-          duration: 3000,
-          showIcon: true,
-        },
       });
     } else {
       api
@@ -73,34 +66,20 @@ const RegistrationPage = () => {
           password: pass.trim(),
         })
         .then((res) => {
-          store.addNotification({
+          Notification({
+            title: '',
             message: 'Conta criada com sucesso!',
             type: 'success',
-            container: 'top-center',
-            insert: 'top',
-            animationIn: ['animated', 'fadeIn'],
-            animationOut: ['animated', 'fadeOut'],
-            dismiss: {
-              duration: 2000,
-              showIcon: true,
-            },
           });
           dispatch(saveUserInfo(res.data));
           navigate('/bet');
           console.log(res);
         })
         .catch((error) =>
-          store.addNotification({
+          Notification({
+            title: '',
             message: 'Esse email já existe!',
             type: 'danger',
-            container: 'top-center',
-            insert: 'top',
-            animationIn: ['animated', 'fadeIn'],
-            animationOut: ['animated', 'fadeOut'],
-            dismiss: {
-              duration: 4000,
-              showIcon: true,
-            },
           })
         );
     }
@@ -121,7 +100,6 @@ const RegistrationPage = () => {
                 placeholder='Nome'
                 onChange={(el) => {
                   setName(el.target.value);
-                  // isRight();
                 }}
                 onBlur={() => check()}
               />
@@ -138,7 +116,6 @@ const RegistrationPage = () => {
                 placeholder='Email'
                 onChange={(el) => {
                   setEmail(el.target.value);
-                  // isRight();
                 }}
                 onBlur={() => check()}
               />
@@ -154,7 +131,6 @@ const RegistrationPage = () => {
                 placeholder='Password'
                 onChange={(el) => {
                   setPass(el.target.value);
-                  // isRight();
                 }}
                 onBlur={() => check()}
               />

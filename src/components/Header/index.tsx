@@ -2,7 +2,11 @@ import { HeaderDiv } from './style';
 import { HeaderTitleDiv } from './style';
 import sair from '../../images/seta-direita.png';
 import { useNavigate } from 'react-router';
-import { removeUserInfo } from '../../store/Stock.store';
+import {
+  clearBetList,
+  removeUserInfo,
+  setActualGameInfo,
+} from '../../store/Stock.store';
 import { useDispatch } from 'react-redux';
 
 interface IHeader {
@@ -14,6 +18,7 @@ const Header = (props: IHeader) => {
   const dispatch = useDispatch();
 
   function handleLeave() {
+    dispatch(clearBetList([{}]));
     dispatch(removeUserInfo());
     navigate('/');
   }
@@ -28,6 +33,17 @@ const Header = (props: IHeader) => {
         {props.showHomeBtn && (
           <button
             onClick={() => {
+              dispatch(
+                setActualGameInfo({
+                  id: 0,
+                  type: '',
+                  description: '',
+                  range: 0,
+                  price: 0,
+                  max_number: 0,
+                  color: '',
+                })
+              );
               navigate('/mybets');
             }}
           >

@@ -9,7 +9,7 @@ import api from '../../../services/api';
 
 import { useDispatch } from 'react-redux';
 import { saveUserInfo } from '../../../store/Stock.store';
-import { store } from 'react-notifications-component';
+import { Notification } from '../../../components/Notification';
 
 const AuthPage = () => {
   const navigate = useNavigate();
@@ -37,17 +37,10 @@ const AuthPage = () => {
   function logIn(e: { preventDefault: () => void }) {
     e.preventDefault();
     if (errorEmail || !pass || !email) {
-      store.addNotification({
+      Notification({
+        title: '',
         message: 'Você deve preencher todos os campos corretamente',
         type: 'warning',
-        container: 'top-center',
-        insert: 'top',
-        animationIn: ['animated', 'fadeIn'],
-        animationOut: ['animated', 'fadeOut'],
-        dismiss: {
-          duration: 4000,
-          showIcon: true,
-        },
       });
     } else {
       api
@@ -57,17 +50,10 @@ const AuthPage = () => {
           navigate('/bet');
         })
         .catch((err) =>
-          store.addNotification({
+          Notification({
+            title: '',
             message: 'Conta inválida...',
             type: 'danger',
-            container: 'top-center',
-            insert: 'top',
-            animationIn: ['animated', 'fadeIn'],
-            animationOut: ['animated', 'fadeOut'],
-            dismiss: {
-              duration: 4000,
-              showIcon: true,
-            },
           })
         );
     }
@@ -108,7 +94,7 @@ const AuthPage = () => {
           </div>
           <div>
             <ForgotPass>
-              <div onClick={() => navigate('/resetpassword')}>
+              <div onClick={() => navigate('/forgotpass')}>
                 I forgot my password
               </div>
             </ForgotPass>

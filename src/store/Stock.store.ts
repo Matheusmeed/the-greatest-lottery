@@ -73,12 +73,10 @@ interface IInitialState {
   };
 
   actualGameInfo: gameType;
-
   selectedNumbers: number[];
-
   cartBetContent: IBetContent;
-
   betList: IBetList[];
+  resetToken: string;
 }
 
 const stock = createSlice({
@@ -96,12 +94,10 @@ const stock = createSlice({
     },
 
     actualGameInfo: {},
-
     selectedNumbers: [0],
-
     cartBetContent: {},
-
     betList: [{}],
+    resetToken: '',
   } as IInitialState,
   reducers: {
     saveUserInfo(state, action: IUserInfoAction) {
@@ -147,6 +143,10 @@ const stock = createSlice({
     clearBetList(state, action) {
       state.betList = action.payload;
     },
+
+    setResetToken(state, action) {
+      state.resetToken = action.payload;
+    },
   },
 });
 
@@ -160,6 +160,7 @@ export const {
   setBetList,
   clearBetList,
   clearCartBetContent,
+  setResetToken,
 } = stock.actions;
 
 export default stock.reducer;

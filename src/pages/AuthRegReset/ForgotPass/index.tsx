@@ -5,10 +5,14 @@ import setaDireitaVerde from '../../../images/seta-direita-verde-musgo.png';
 import setaDireita from '../../../images/seta-direita.png';
 import { ImagemInvertida } from './styles';
 import { ErrorDiv } from '../style';
-import { useState } from 'react';
-import { store } from 'react-notifications-component';
+import { useEffect, useState } from 'react';
+import { Notification } from '../../../components/Notification';
+import api from '../../../services/api';
+import { setResetToken } from '../../../store/Stock.store';
+import { useDispatch } from 'react-redux';
 
-const ResetPassword = () => {
+const ForgotPass = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
@@ -21,41 +25,36 @@ const ResetPassword = () => {
       setEmailError(true);
     }
   }
-  function isRight() {
+
+  useEffect(() => {
     if (emailRegex.test(email)) {
       setEmailError(false);
     }
-  }
+  }, [email]);
 
   function handleSubmit(e: { preventDefault: () => void }) {
     e.preventDefault();
 
     if (errorEmail || !email) {
-      store.addNotification({
+      Notification({
+        title: '',
         message: 'Preencha o seu email corretamente!',
         type: 'warning',
-        container: 'top-center',
-        insert: 'top',
-        animationIn: ['animated', 'fadeIn'],
-        animationOut: ['animated', 'fadeOut'],
-        dismiss: {
-          duration: 4000,
-          showIcon: true,
-        },
       });
     } else {
-      store.addNotification({
-        message: 'Enviado com sucesso!',
-        type: 'success',
-        container: 'top-center',
-        insert: 'top',
-        animationIn: ['animated', 'fadeIn'],
-        animationOut: ['animated', 'fadeOut'],
-        dismiss: {
-          duration: 4000,
-          showIcon: true,
-        },
-      });
+      api
+        .post('/reset', { email: email.trim() })
+        .then((res) => {
+          dispatch(setResetToken(res.data.token));
+          navigate('/resetpass');
+        })
+        .catch((error) => {
+          Notification({
+            title: 'ERRO',
+            message: 'Usuário não encontrado em nossa base de dados',
+            type: 'danger',
+          });
+        });
     }
   }
 
@@ -66,7 +65,7 @@ const ResetPassword = () => {
           <Title></Title>
         </div>
         <div>
-          <h1>Authentication</h1>
+          <h1>Reset password</h1>
           <form onSubmit={handleSubmit}>
             <div>
               <input
@@ -74,7 +73,6 @@ const ResetPassword = () => {
                 placeholder='Email'
                 onChange={(el) => {
                   setEmail(el.target.value);
-                  isRight();
                 }}
                 onBlur={() => check()}
               />
@@ -100,7 +98,4 @@ const ResetPassword = () => {
   );
 };
 
-export default ResetPassword;
-function e(e: any): void {
-  throw new Error('Function not implemented.');
-}
+export default ForgotPass;

@@ -62,13 +62,17 @@ export const BetInfoDiv = styled.div`
     padding: 2px;
   }
 
-  div {
-    border-left: 5px solid red;
-    padding-left: 10px;
-    margin-bottom: 20px;
-  }
-
   h5 {
     font-weight: normal;
+  }
+`;
+
+export const OwnBet = styled.div`
+  border-left: 5px solid ${(props) => props.color || 'red'};
+  padding-left: 10px;
+  margin-bottom: 20px;
+
+  h4 {
+    color: ${(props) => props.color};
   }
 `;
