@@ -38,7 +38,6 @@ const ForgotPass = () => {
 
     if (errorEmail || !email) {
       Notification({
-        title: '',
         message: 'Preencha o seu email corretamente!',
         type: 'warning',
       });

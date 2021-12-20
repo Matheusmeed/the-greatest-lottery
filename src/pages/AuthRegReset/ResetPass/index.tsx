@@ -48,19 +48,16 @@ const ResetPass = () => {
     event?.preventDefault();
     if (!pass || !pass2) {
       Notification({
-        title: '',
         message: 'Preencha todos os campos!',
         type: 'warning',
       });
     } else if (pass !== pass2) {
       Notification({
-        title: '',
         message: 'As senhas estão diferentes!',
         type: 'warning',
       });
     } else if (!passRegex.test(pass)) {
       Notification({
-        title: '',
         message:
           'Sua senha precisa ter pelo menos 6 caracteres, incluindo um número.',
         type: 'warning',
@@ -70,7 +67,6 @@ const ResetPass = () => {
         .post(`/reset/${stock.resetToken}`, { password: pass })
         .then((res) => {
           Notification({
-            title: '',
             message: 'Senha atualizada com sucesso!',
             type: 'success',
           });

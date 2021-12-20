@@ -39,7 +39,6 @@ const AuthPage = () => {
     e.preventDefault();
     if (errorEmail || !pass || !email) {
       Notification({
-        title: '',
         message: 'Você deve preencher todos os campos corretamente',
         type: 'warning',
       });
@@ -52,7 +51,6 @@ const AuthPage = () => {
         })
         .catch((err) =>
           Notification({
-            title: '',
             message: 'Conta inválida...',
             type: 'danger',
           })

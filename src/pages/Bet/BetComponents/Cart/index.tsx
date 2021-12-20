@@ -101,7 +101,6 @@ const Cart = () => {
         )
         .then((res) => {
           Notification({
-            title: '',
             message: 'Suas apostas foram salvas!',
             type: 'success',
           });
@@ -115,7 +114,6 @@ const Cart = () => {
                 type: 'danger',
               })
             : Notification({
-                title: '',
                 message: 'Aconteceu algum erro :(',
                 type: 'danger',
               })

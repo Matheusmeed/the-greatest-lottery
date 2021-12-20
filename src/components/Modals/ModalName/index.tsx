@@ -19,7 +19,6 @@ const ModalName = (props: IModalNameProps) => {
   function handleChangeName() {
     if (!name) {
       Notification({
-        title: '',
         message: 'Preencha o campo para alterar o seu nome!',
         type: 'warning',
       });

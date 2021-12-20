@@ -19,20 +19,17 @@ const ModalPass = (props: IModalNameProps) => {
   function handleChangePass() {
     if (!pass || !pass2) {
       Notification({
-        title: '',
         message: 'Preencha todos os campos!',
         type: 'warning',
       });
     } else if (pass !== pass2) {
       Notification({
-        title: '',
         message: 'As senhas estão diferentes!',
         type: 'warning',
         duration: 5000,
       });
     } else if (!passRegex.test(pass) || !passRegex.test(pass2)) {
       Notification({
-        title: '',
         message:
           'Sua senha deve conter pelo menos 6 caracteres, incluindo um número.',
         type: 'warning',
@@ -44,7 +41,6 @@ const ModalPass = (props: IModalNameProps) => {
           .post(`/reset/${res.data.token}`, { password: pass.trim() })
           .then((res) => {
             Notification({
-              title: '',
               message: 'Senha alterada com sucesso!',
               type: 'success',
             });

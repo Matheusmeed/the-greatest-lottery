@@ -31,7 +31,6 @@ const GameNumbers = () => {
       } else {
         if (stock.actualGameInfo.max_number === stock.selectedNumbers.length) {
           Notification({
-            title: '',
             message: `Você já escolheu ${stock.actualGameInfo.max_number} números!`,
             type: 'info',
           });
@@ -65,7 +64,6 @@ const GameNumbers = () => {
   function completeGame() {
     if (stock.selectedNumbers.length === stock.actualGameInfo.max_number) {
       Notification({
-        title: '',
         message: `Você já escolheu ${stock.actualGameInfo.max_number} números!`,
         type: 'info',
       });
@@ -93,7 +91,6 @@ const GameNumbers = () => {
   function handleAddToCart() {
     if (stock.selectedNumbers.length < stock.actualGameInfo.max_number) {
       Notification({
-        title: '',
         message: `Você precisa escolher mais ${
           stock.actualGameInfo.max_number - stock.selectedNumbers.length
         } número(s)`,

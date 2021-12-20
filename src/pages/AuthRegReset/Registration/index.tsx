@@ -55,7 +55,6 @@ const RegistrationPage = () => {
 
     if (!name || !pass || !email || errorEmail || errorPass || errorName) {
       Notification({
-        title: '',
         message: 'Preencha todos os campos corretamente!',
         type: 'warning',
       });
@@ -68,7 +67,6 @@ const RegistrationPage = () => {
         })
         .then((res) => {
           Notification({
-            title: '',
             message: 'Conta criada com sucesso!',
             type: 'success',
           });
@@ -78,7 +76,6 @@ const RegistrationPage = () => {
         })
         .catch((error) =>
           Notification({
-            title: '',
             message: 'Esse email já existe!',
             type: 'danger',
           })
