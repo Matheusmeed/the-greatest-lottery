@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import NotLogged from '../../components/NotLogged';
 import api from '../../services/api';
+import { Notification } from '../../components/Notification';
 
 interface ISavedBets {
   choosen_numbers: string;
@@ -55,7 +56,9 @@ const MyBetsPage = () => {
           }
         )
         .then((res) => setSavedBets(res.data.reverse()))
-        .catch((error) => alert('Ocorreu algum erro!'));
+        .catch((error) =>
+          Notification({ message: 'Ocorreu algum erro!', type: 'danger' })
+        );
     } else {
       api
         .get(`/bet/all-bets`, {
@@ -64,7 +67,9 @@ const MyBetsPage = () => {
           },
         })
         .then((res) => setSavedBets(res.data.reverse()))
-        .catch((error) => alert('Ocorreu algum erro!'));
+        .catch((error) =>
+          Notification({ message: 'Ocorreu algum erro!', type: 'danger' })
+        );
     }
   }, [stock.actualGameInfo, stock.userInfo.token.token]);
 
