@@ -155,6 +155,7 @@ const Cart = () => {
                   </li>
                 );
               }
+              return '';
             })
           : 'Você ainda não adicionou apostas ao seu carrinho, escolha o seu jogo favorito e faça a sua aposta!'}
       </ul>

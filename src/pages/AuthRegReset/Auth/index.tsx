@@ -32,7 +32,8 @@ const AuthPage = () => {
     if (emailRegex.test(email)) {
       setEmailError(false);
     }
-  }, [email, emailRegex]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [email]);
 
   function logIn(e: { preventDefault: () => void }) {
     e.preventDefault();

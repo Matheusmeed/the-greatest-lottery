@@ -99,6 +99,7 @@ const MyBetsPage = () => {
                     if (bet.type.type === el.type) {
                       color = el.color;
                     }
+                    return '';
                   });
 
                   let choosenNumbers = bet.choosen_numbers.replace(/,/g, ', ');

@@ -47,6 +47,7 @@ const RegistrationPage = () => {
     if (nameRegex.test(name)) {
       setNameError(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email, pass, name]);
 
   function handleRegistration(event: { preventDefault: () => void }) {

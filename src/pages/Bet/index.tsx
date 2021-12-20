@@ -31,7 +31,7 @@ const BetPage = () => {
         setError(true);
         setLoading(false);
       });
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     stock.userInfo.token.token ? setUserLogged(true) : setUserLogged(false);

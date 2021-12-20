@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import api from '../../../services/api';
 import { RootState } from '../../../store';
-import { saveUserInfo } from '../../../store/Stock.store';
 import { Notification } from '../../Notification';
 import { Modal, DivModal, Leave } from '../index';
 
@@ -12,7 +11,6 @@ interface IModalNameProps {
 
 const ModalName = (props: IModalNameProps) => {
   const stock = useSelector((state: RootState) => state.stock);
-  const dispatch = useDispatch();
 
   const [name, setName] = useState('');
 

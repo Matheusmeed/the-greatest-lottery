@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Title from '../../../components/Title';
 import { ImagemInvertida } from '../ForgotPass/styles';
@@ -12,7 +12,6 @@ import { RootState } from '../../../store';
 
 const ResetPass = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const stock = useSelector((state: RootState) => state.stock);
   const [pass, setPass] = useState('');
   const [pass2, setPass2] = useState('');
@@ -42,6 +41,7 @@ const ResetPass = () => {
     if (passRegex.test(pass2)) {
       setPassError2(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pass, pass2]);
 
   function handleChangePass(event: { preventDefault: () => void }) {

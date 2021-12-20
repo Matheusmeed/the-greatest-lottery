@@ -30,6 +30,7 @@ const ForgotPass = () => {
     if (emailRegex.test(email)) {
       setEmailError(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email]);
 
   function handleSubmit(e: { preventDefault: () => void }) {
