@@ -1,24 +1,37 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Title from '../../../components/Title';
 import { ImagemInvertida } from '../ForgotPass/styles';
 import seta from '../../../images/seta-direita.png';
 import setaDireitaVerde from '../../../images/seta-direita-verde-musgo.png';
 import { Container, ErrorDiv } from '../style';
+import { Notification } from '../../../components/Notification';
+import api from '../../../services/api';
+import { RootState } from '../../../store';
 
 const ResetPass = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const stock = useSelector((state: RootState) => state.stock);
   const [pass, setPass] = useState('');
   const [pass2, setPass2] = useState('');
 
   const [errorPass, setPassError] = useState(false);
+  const [errorPass2, setPassError2] = useState(false);
   const passRegex = /^(?=.*\d)(?=.*[a-zA-Z]).{6,16}$/;
 
-  function check() {
-    if (pass !== '' && !passRegex.test(pass)) {
-      setPassError(true);
+  function check(passNum: number) {
+    if (passNum === 1) {
+      if (pass !== '' && !passRegex.test(pass)) {
+        setPassError(true);
+      }
+    }
+
+    if (passNum === 2) {
+      if (pass2 !== '' && !passRegex.test(pass2)) {
+        setPassError2(true);
+      }
     }
   }
 
@@ -26,9 +39,52 @@ const ResetPass = () => {
     if (passRegex.test(pass)) {
       setPassError(false);
     }
-  }, [pass]);
+    if (passRegex.test(pass2)) {
+      setPassError2(false);
+    }
+  }, [pass, pass2]);
 
-  function handleChangePass() {}
+  function handleChangePass(event: { preventDefault: () => void }) {
+    event?.preventDefault();
+    if (!pass || !pass2) {
+      Notification({
+        title: '',
+        message: 'Preencha todos os campos!',
+        type: 'warning',
+      });
+    } else if (pass !== pass2) {
+      Notification({
+        title: '',
+        message: 'As senhas estão diferentes!',
+        type: 'warning',
+      });
+    } else if (!passRegex.test(pass)) {
+      Notification({
+        title: '',
+        message:
+          'Sua senha precisa ter pelo menos 6 caracteres, incluindo um número.',
+        type: 'warning',
+      });
+    } else {
+      api
+        .post(`/reset/${stock.resetToken}`, { password: pass })
+        .then((res) => {
+          Notification({
+            title: '',
+            message: 'Senha atualizada com sucesso!',
+            type: 'success',
+          });
+          navigate('/');
+        })
+        .catch((error) =>
+          Notification({
+            title: 'ERRO',
+            message: 'Aconteceu algum erro :(',
+            type: 'danger',
+          })
+        );
+    }
+  }
 
   return (
     <>
@@ -46,7 +102,7 @@ const ResetPass = () => {
                 onChange={(el) => {
                   setPass(el.target.value);
                 }}
-                onBlur={() => check()}
+                onBlur={() => check(1)}
               />
             </div>
             {errorPass && (
@@ -61,10 +117,10 @@ const ResetPass = () => {
                 onChange={(el) => {
                   setPass2(el.target.value);
                 }}
-                onBlur={() => check()}
+                onBlur={() => check(2)}
               />
             </div>
-            {errorPass && (
+            {errorPass2 && (
               <ErrorDiv>
                 Sua senha deve conter 6 caracteres, incluindo um número.
               </ErrorDiv>
