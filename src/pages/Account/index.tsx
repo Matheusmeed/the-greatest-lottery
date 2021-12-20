@@ -15,6 +15,7 @@ const Account = () => {
   const [logged, setLogged] = useState(false);
   const [modalName, setModalName] = useState(false);
   const [modalPass, setModalPass] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const name = stock.userInfo.user.name;
   const email = stock.userInfo.user.email;
@@ -23,14 +24,17 @@ const Account = () => {
 
   useEffect(() => {
     stock.userInfo.token.token ? setLogged(true) : setLogged(false);
+    setLoading(false);
   }, [stock]);
 
   return (
     <>
       <Header showHomeBtn={true} />
-      {!logged ? (
-        <NotLogged />
-      ) : (
+
+      {loading && <h5>Loading...</h5>}
+      {!loading && !logged && <NotLogged />}
+
+      {!loading && logged && (
         <Container>
           <Info>
             <div>Nome: {name}</div>

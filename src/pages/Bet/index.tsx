@@ -13,14 +13,13 @@ import api from '../../services/api';
 
 const BetPage = () => {
   const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [userLogged, setUserLogged] = useState(false);
 
   const dispatch = useDispatch();
   const stock = useSelector((state: RootState) => state.stock);
 
   useEffect(() => {
-    setLoading(true);
     api
       .get('/cart_games')
       .then((res) => {
@@ -41,10 +40,11 @@ const BetPage = () => {
   return (
     <>
       <Header showHomeBtn={true} />
-      {userLogged ? (
-        loading ? (
-          <div>Loading...</div>
-        ) : error ? (
+      {loading && <h5>Loading...</h5>}
+      {!loading && !userLogged && <NotLogged />}
+      {!loading &&
+        userLogged &&
+        (error ? (
           <h1 style={{ marginLeft: 10 }}>API NÃO ENCONTRADA!</h1>
         ) : (
           <Container>
@@ -87,10 +87,7 @@ const BetPage = () => {
             </div>
             <Cart />
           </Container>
-        )
-      ) : (
-        <NotLogged />
-      )}
+        ))}
     </>
   );
 };

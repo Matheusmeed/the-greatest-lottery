@@ -33,11 +33,13 @@ const MyBetsPage = () => {
   const navigate = useNavigate();
   const [userLogged, setUserLogged] = useState(false);
   const [savedBets, setSavedBets] = useState<savedBets>([]);
+  const [loading, setLoading] = useState(true);
 
   const stock = useSelector((state: RootState) => state.stock);
 
   useEffect(() => {
     stock.userInfo.token.token ? setUserLogged(true) : setUserLogged(false);
+    setLoading(false);
   }, [stock]);
 
   useEffect(() => {
@@ -70,7 +72,9 @@ const MyBetsPage = () => {
     <>
       <Header showHomeBtn={false} />
 
-      {userLogged ? (
+      {loading && <h5>Loading...</h5>}
+      {!loading && !userLogged && <NotLogged />}
+      {!loading && userLogged && (
         <>
           <Container>
             <FilterGameDiv>
@@ -122,8 +126,6 @@ const MyBetsPage = () => {
               : ''}
           </BetInfoDiv>
         </>
-      ) : (
-        <NotLogged />
       )}
     </>
   );

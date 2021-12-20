@@ -37,7 +37,7 @@ const ModalName = (props: IModalNameProps) => {
           '/user/update',
           {
             email: stock.userInfo.user.email,
-            name: name.trim(),
+            name: name.trim().charAt(0).toUpperCase() + name.slice(1),
           },
           {
             headers: { Authorization: `Bearer ${stock.userInfo.token.token}` },
