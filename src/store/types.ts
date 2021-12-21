@@ -20,6 +20,10 @@ interface IUserInfoAction {
   };
 }
 
+interface IChangeUserName {
+  payload: string;
+}
+
 interface IGameListAction {
   payload: {
     min_cart_value: number;
@@ -87,4 +91,5 @@ export type {
   IActualGameInfoAction,
   ISelectedNumbersAction,
   IGameListAction,
+  IChangeUserName,
 };

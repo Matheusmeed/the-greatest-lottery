@@ -7,6 +7,7 @@ import {
   ISelectedNumbersAction,
   IBetContentAction,
   IbetListAction,
+  IChangeUserName,
 } from './types';
 
 const stock = createSlice({
@@ -32,6 +33,10 @@ const stock = createSlice({
   reducers: {
     saveUserInfo(state, action: IUserInfoAction) {
       state.userInfo = action.payload;
+    },
+
+    changeUserName(state, action: IChangeUserName) {
+      state.userInfo.user.name = action.payload;
     },
 
     removeUserInfo(state) {
@@ -91,6 +96,7 @@ export const {
   clearBetList,
   clearCartBetContent,
   setResetToken,
+  changeUserName,
 } = stock.actions;
 
 export default stock.reducer;

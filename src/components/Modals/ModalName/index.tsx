@@ -3,7 +3,8 @@ import { Notification } from '@shared/helpers/Notification';
 import { RootState } from '@store/index';
 import { Modal, DivModal, Leave } from '@components/Modals/index';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeUserName } from '@store/Stock.store';
 
 interface IModalNameProps {
   setModalName: Function;
@@ -11,6 +12,7 @@ interface IModalNameProps {
 
 const ModalName = (props: IModalNameProps) => {
   const stock = useSelector((state: RootState) => state.stock);
+  const dispatch = useDispatch();
 
   const [name, setName] = useState('');
 
@@ -40,18 +42,18 @@ const ModalName = (props: IModalNameProps) => {
             headers: { Authorization: `Bearer ${stock.userInfo.token.token}` },
           }
         )
-        .then(() => {
+        .then((res) => {
+          dispatch(changeUserName(res.data.name));
           Notification({
-            title: 'Nome alterado com sucesso!',
-            message:
-              'Seu nome já irá aparecer atualizado quando você realizar o login novamente.',
+            message: 'Nome alterado com sucesso!',
             type: 'success',
             duration: 5000,
           });
-
           props.setModalName(false);
         })
-        .catch((error) => console.log(error));
+        .catch(() =>
+          Notification({ message: 'Aconteceu algum erro :(', type: 'danger' })
+        );
     }
   }
 
