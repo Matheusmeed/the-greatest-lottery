@@ -9,7 +9,7 @@ import {
 } from '../../../../store/Stock.store';
 import { RootState } from '../../../../store';
 import api from '../../../../shared/services/api';
-import { Notification } from '../../../../components/Notification';
+import { Notification } from '../../../../shared/helpers/Notification';
 
 type gamesType = [{ id: number; numbers: number[] }];
 

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import api from '../../../shared/services/api';
 import { RootState } from '../../../store';
-import { Notification } from '../../Notification';
+import { Notification } from '../../../shared/helpers/Notification';
 import { Modal, DivModal, Leave } from '../index';
 
 interface IModalNameProps {

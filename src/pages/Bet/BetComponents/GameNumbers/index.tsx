@@ -7,7 +7,7 @@ import {
   setSelectedNumbers,
 } from '../../../../store/Stock.store';
 import { RootState } from '../../../../store';
-import { Notification } from '../../../../components/Notification';
+import { Notification } from '../../../../shared/helpers/Notification';
 
 const GameNumbers = () => {
   let numbers: number[] = [];
