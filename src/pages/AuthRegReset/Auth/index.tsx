@@ -1,13 +1,12 @@
 import { Container, ErrorDiv } from '../style';
+import { setaDireitaVerdeMusgo, setaDireita } from '../../../images';
 import { ForgotPass } from './style';
 import { useNavigate } from 'react-router';
-import setaDireitaVerde from '../../../images/seta-direita-verde-musgo.png';
-import setaDireita from '../../../images/seta-direita.png';
+import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import api from '../../../shared/services/api';
 import { Title, Notification } from '../../../components';
 
-import { useDispatch } from 'react-redux';
 import { saveUserInfo } from '../../../store/Stock.store';
 
 const AuthPage = () => {
@@ -98,7 +97,7 @@ const AuthPage = () => {
             </ForgotPass>
 
             <button type='submit'>
-              Log In <img src={setaDireitaVerde} alt='log-in' />
+              Log In <img src={setaDireitaVerdeMusgo} alt='log-in' />
             </button>
           </div>
         </form>

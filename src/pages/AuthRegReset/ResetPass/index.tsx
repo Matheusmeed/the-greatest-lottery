@@ -3,8 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Title, Notification } from '../../../components';
 import { ImagemInvertida } from '../ForgotPass/styles';
-import seta from '../../../images/seta-direita.png';
-import setaDireitaVerde from '../../../images/seta-direita-verde-musgo.png';
+import { setaDireitaVerdeMusgo, setaDireita } from '../../../images';
 import { Container, ErrorDiv } from '../style';
 import api from '../../../shared/services/api';
 import { RootState } from '../../../store';
@@ -123,13 +122,13 @@ const ResetPass = () => {
             <div>
               <button type='submit' value='Register'>
                 Change Password{' '}
-                <img src={setaDireitaVerde} alt='alterar senha' />
+                <img src={setaDireitaVerdeMusgo} alt='alterar senha' />
               </button>
             </div>
           </form>
           <button onClick={() => navigate('/forgotpass')}>
             {' '}
-            <ImagemInvertida src={seta} alt='back' /> Back
+            <ImagemInvertida src={setaDireita} alt='back' /> Back
           </button>
         </div>
       </Container>

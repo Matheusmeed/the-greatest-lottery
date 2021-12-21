@@ -1,7 +1,6 @@
 import { Container, ErrorDiv } from '../style';
 import { useNavigate } from 'react-router';
-import setaDireitaVerde from '../../../images/seta-direita-verde-musgo.png';
-import setaDireita from '../../../images/seta-direita.png';
+import { setaDireitaVerdeMusgo, setaDireita } from '../../../images';
 import { ImagemInvertida } from '../ForgotPass/styles';
 import { useEffect, useState } from 'react';
 import api from '../../../shared/services/api';
@@ -139,7 +138,7 @@ const RegistrationPage = () => {
             )}
             <div>
               <button type='submit' value='Register'>
-                Register <img src={setaDireitaVerde} alt='register' />
+                Register <img src={setaDireitaVerdeMusgo} alt='register' />
               </button>
             </div>
           </form>

@@ -1,12 +1,13 @@
 import { BrowserRouter, Routes as Switch, Route } from 'react-router-dom';
-
-import AuthPage from './pages/AuthRegReset/Auth';
-import RegistrationPage from './pages/AuthRegReset/Registration';
-import MyBetsPage from './pages/Mybets';
-import BetPage from './pages/Bet';
-import ForgotPass from './pages/AuthRegReset/ForgotPass';
-import Account from './pages/Account';
-import ResetPass from './pages/AuthRegReset/ResetPass';
+import {
+  AuthPage,
+  RegistrationPage,
+  MyBetsPage,
+  BetPage,
+  Account,
+  ForgotPass,
+  ResetPass,
+} from './pages';
 
 const Routes: React.FC = () => {
   return (

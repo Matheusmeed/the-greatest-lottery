@@ -1,12 +1,12 @@
+import { setaDireita } from '../../images';
 import { HeaderDiv, HeaderTitleDiv } from './style';
-import sair from '../../images/seta-direita.png';
 import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
 import {
   clearBetList,
   removeUserInfo,
   setActualGameInfo,
 } from '../../store/Stock.store';
-import { useDispatch } from 'react-redux';
 
 interface IHeader {
   showHomeBtn: boolean;
@@ -54,7 +54,7 @@ const Header = (props: IHeader) => {
       <div>
         <button onClick={() => navigate('/account')}>Account</button>
         <button onClick={handleLeave}>
-          Sair <img src={sair} alt='sair' />
+          Sair <img src={setaDireita} alt='sair' />
         </button>
       </div>
     </HeaderDiv>

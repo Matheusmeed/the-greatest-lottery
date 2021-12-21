@@ -1,7 +1,7 @@
-export type userType = { name: string; email: string; created_at: string };
-export type tokenType = { token: string; type: string };
+type userType = { name: string; email: string; created_at: string };
+type tokenType = { token: string; type: string };
 
-export type gameType = {
+type gameType = {
   id: number;
   type: string;
   description: string;
@@ -13,53 +13,53 @@ export type gameType = {
 
 // Tipagem das Actions
 
-export interface IUserInfoAction {
+interface IUserInfoAction {
   payload: {
     user: userType;
     token: tokenType;
   };
 }
 
-export interface IGameListAction {
+interface IGameListAction {
   payload: {
     min_cart_value: number;
     types: [gameType];
   };
 }
 
-export interface IActualGameInfoAction {
+interface IActualGameInfoAction {
   payload: gameType;
 }
 
-export interface ISelectedNumbersAction {
+interface ISelectedNumbersAction {
   payload: number[];
 }
 
-export interface IBetContentAction {
+interface IBetContentAction {
   payload: IBetContent;
 }
 
-export interface IbetListAction {
+interface IbetListAction {
   payload: IBetList;
 }
 
 //Tipagens para o InitialState
 
-export interface IBetContent {
+interface IBetContent {
   selectedNumbers: number[];
   gameName: string;
   gameColor: string;
   gamePrice: number;
 }
 
-export interface IBetList {
+interface IBetList {
   selectedNumbers: number[];
   gameName: string;
   gameColor: string;
   gamePrice: number;
 }
 
-export interface IInitialState {
+interface IInitialState {
   userInfo: {
     user: userType;
     token: tokenType;
@@ -76,3 +76,15 @@ export interface IInitialState {
   betList: IBetList[];
   resetToken: string;
 }
+
+export type {
+  IInitialState,
+  IBetList,
+  IBetContent,
+  IbetListAction,
+  IBetContentAction,
+  IUserInfoAction,
+  IActualGameInfoAction,
+  ISelectedNumbersAction,
+  IGameListAction,
+};

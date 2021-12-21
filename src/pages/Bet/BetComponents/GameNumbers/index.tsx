@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { AddToCartBtn, ButtonNumber, GameBtn, GameBtnsDiv } from './style';
-import CartImg from '../../../../images/carrinho-de-compras.png';
+import { carrinho } from '../../../../images';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setCartBetContent,
@@ -120,7 +120,7 @@ const GameNumbers = () => {
           <GameBtn onClick={() => clearGame()}>Clear Game</GameBtn>
         </div>
         <AddToCartBtn onClick={() => handleAddToCart()}>
-          <img src={CartImg} alt='cart' /> Add to cart
+          <img src={carrinho} alt='cart' /> Add to cart
         </AddToCartBtn>
       </GameBtnsDiv>
     </div>

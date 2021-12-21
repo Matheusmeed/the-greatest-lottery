@@ -1,7 +1,6 @@
 import { Container } from '../style';
 import { useNavigate } from 'react-router-dom';
-import setaDireitaVerde from '../../../images/seta-direita-verde-musgo.png';
-import setaDireita from '../../../images/seta-direita.png';
+import { setaDireitaVerdeMusgo, setaDireita } from '../../../images';
 import { ImagemInvertida } from './styles';
 import { ErrorDiv } from '../style';
 import { useEffect, useState } from 'react';
@@ -83,7 +82,7 @@ const ForgotPass = () => {
             )}
             <div>
               <button type='submit'>
-                Send Link <img src={setaDireitaVerde} alt='send link' />
+                Send Link <img src={setaDireitaVerdeMusgo} alt='send link' />
               </button>
             </div>
           </form>

@@ -1,6 +1,5 @@
 import { CartDiv, DivSave, GameName, DivBetInfo } from './style';
-import setaVerde from '../../../../images/seta-direita-verde.png';
-import lixeira from '../../../../images/lixeira.png';
+import { setaDireitaVerde, lixeira } from '../../../../images';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -163,7 +162,7 @@ const Cart = () => {
       </div>
       <DivSave>
         <button onClick={handleSave}>
-          Save <img src={setaVerde} alt='Save' />
+          Save <img src={setaDireitaVerde} alt='Save' />
         </button>
       </DivSave>
     </CartDiv>

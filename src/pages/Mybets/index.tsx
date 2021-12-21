@@ -7,7 +7,7 @@ import {
   NewBetBtn,
   OwnBet,
 } from './styles';
-import seta from '../../images/seta-direita-verde-musgo.png';
+import { setaDireitaVerdeMusgo } from '../../images';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -90,7 +90,7 @@ const MyBetsPage = () => {
 
             <div>
               <NewBetBtn onClick={() => navigate('/bet')}>
-                New Bet <img src={seta} alt='nova aposta' />
+                New Bet <img src={setaDireitaVerdeMusgo} alt='nova aposta' />
               </NewBetBtn>
             </div>
           </Container>
