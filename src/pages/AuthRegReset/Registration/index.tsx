@@ -1,12 +1,12 @@
+import { saveUserInfo } from '@store/Stock.store';
+import { setaDireitaVerdeMusgo, setaDireita } from '@images/index';
+import api from '@shared/services/api';
+import { Notification, Title } from '@components/index';
 import { Container, ErrorDiv } from '../style';
-import { useNavigate } from 'react-router';
-import { setaDireitaVerdeMusgo, setaDireita } from '../../../images';
 import { ImagemInvertida } from '../ForgotPass/styles';
 import { useEffect, useState } from 'react';
-import api from '../../../shared/services/api';
+import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
-import { saveUserInfo } from '../../../store/Stock.store';
-import { Notification, Title } from '../../../components';
 
 const RegistrationPage = () => {
   const navigate = useNavigate();
@@ -72,7 +72,7 @@ const RegistrationPage = () => {
           navigate('/bet');
           console.log(res);
         })
-        .catch((error) =>
+        .catch(() =>
           Notification({
             message: 'Esse email já existe!',
             type: 'danger',

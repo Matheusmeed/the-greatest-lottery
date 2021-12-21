@@ -1,13 +1,10 @@
-import { useEffect } from 'react';
+import { setCartBetContent, setSelectedNumbers } from '@store/Stock.store';
+import { RootState } from '@store/index';
+import { Notification } from '@shared/helpers/Notification';
+import { carrinho } from '@images/index';
 import { AddToCartBtn, ButtonNumber, GameBtn, GameBtnsDiv } from './style';
-import { carrinho } from '../../../../images';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  setCartBetContent,
-  setSelectedNumbers,
-} from '../../../../store/Stock.store';
-import { RootState } from '../../../../store';
-import { Notification } from '../../../../shared/helpers/Notification';
 
 const GameNumbers = () => {
   let numbers: number[] = [];

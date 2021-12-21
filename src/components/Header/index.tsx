@@ -1,12 +1,12 @@
-import { setaDireita } from '../../images';
-import { HeaderDiv, HeaderTitleDiv } from './style';
-import { useNavigate } from 'react-router';
-import { useDispatch } from 'react-redux';
+import { setaDireita } from '@images/index';
 import {
   clearBetList,
   removeUserInfo,
   setActualGameInfo,
-} from '../../store/Stock.store';
+} from '@store/Stock.store';
+import { HeaderDiv, HeaderTitleDiv } from './style';
+import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
 
 interface IHeader {
   showHomeBtn: boolean;

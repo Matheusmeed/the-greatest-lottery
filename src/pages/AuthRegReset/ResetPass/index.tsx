@@ -1,12 +1,12 @@
+import { setaDireitaVerdeMusgo, setaDireita } from '@images/index';
+import api from '@shared/services/api';
+import { RootState } from '@store/index';
+import { Title, Notification } from '@components/index';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Title, Notification } from '../../../components';
 import { ImagemInvertida } from '../ForgotPass/styles';
-import { setaDireitaVerdeMusgo, setaDireita } from '../../../images';
 import { Container, ErrorDiv } from '../style';
-import api from '../../../shared/services/api';
-import { RootState } from '../../../store';
 
 const ResetPass = () => {
   const navigate = useNavigate();
@@ -63,14 +63,14 @@ const ResetPass = () => {
     } else {
       api
         .post(`/reset/${stock.resetToken}`, { password: pass })
-        .then((res) => {
+        .then(() => {
           Notification({
             message: 'Senha atualizada com sucesso!',
             type: 'success',
           });
           navigate('/');
         })
-        .catch((error) =>
+        .catch(() =>
           Notification({
             title: 'ERRO',
             message: 'Aconteceu algum erro :(',

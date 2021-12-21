@@ -1,12 +1,12 @@
-import { Container } from '../style';
 import { useNavigate } from 'react-router-dom';
-import { setaDireitaVerdeMusgo, setaDireita } from '../../../images';
+import { Container } from '../style';
 import { ImagemInvertida } from './styles';
 import { ErrorDiv } from '../style';
+import { setaDireitaVerdeMusgo, setaDireita } from '@images/index';
+import api from '@shared/services/api';
+import { setResetToken } from '@store/Stock.store';
+import { Title, Notification } from '@components/index';
 import { useEffect, useState } from 'react';
-import api from '../../../shared/services/api';
-import { setResetToken } from '../../../store/Stock.store';
-import { Title, Notification } from '../../../components';
 import { useDispatch } from 'react-redux';
 
 const ForgotPass = () => {
@@ -46,7 +46,7 @@ const ForgotPass = () => {
           dispatch(setResetToken(res.data.token));
           navigate('/resetpass');
         })
-        .catch((error) => {
+        .catch(() => {
           Notification({
             title: 'ERRO',
             message: 'Usuário não encontrado em nossa base de dados',

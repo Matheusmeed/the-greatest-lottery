@@ -1,9 +1,9 @@
+import api from '@shared/services/api';
+import { Notification } from '@shared/helpers/Notification';
+import { RootState } from '@store/index';
+import { Modal, DivModal, Leave } from '@components/Modals/index';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import api from '../../../shared/services/api';
-import { RootState } from '../../../store';
-import { Notification } from '../../../shared/helpers/Notification';
-import { Modal, DivModal, Leave } from '../index';
 
 interface IModalNameProps {
   setModalName: Function;
@@ -40,7 +40,7 @@ const ModalName = (props: IModalNameProps) => {
             headers: { Authorization: `Bearer ${stock.userInfo.token.token}` },
           }
         )
-        .then((res) => {
+        .then(() => {
           Notification({
             title: 'Nome alterado com sucesso!',
             message:

@@ -1,7 +1,7 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../../store';
+import { RootState } from '@store/index';
+import { setActualGameInfo } from '@store/Stock.store';
 import { Container, GameButton } from './styles';
-import { setActualGameInfo } from '../../../../store/Stock.store';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface IGameListProps {
   filter: boolean;

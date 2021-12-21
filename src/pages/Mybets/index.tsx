@@ -1,5 +1,8 @@
-import { Header, NotLogged, Notification } from '../../components';
-import { GameList } from '../Bet/BetComponents';
+import { RootState } from '@store/index';
+import api from '@shared/services/api';
+import { Header, NotLogged, Notification } from '@components/index';
+import { GameList } from '@betComponents/index';
+import { setaDireitaVerdeMusgo } from '@images/index';
 import {
   Container,
   FilterGameDiv,
@@ -7,12 +10,9 @@ import {
   NewBetBtn,
   OwnBet,
 } from './styles';
-import { setaDireitaVerdeMusgo } from '../../images';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
-import api from '../../shared/services/api';
 
 interface ISavedBets {
   choosen_numbers: string;

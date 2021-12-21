@@ -1,15 +1,15 @@
-import { CartDiv, DivSave, GameName, DivBetInfo } from './style';
-import { setaDireitaVerde, lixeira } from '../../../../images';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   clearBetList,
   clearCartBetContent,
   setBetList,
-} from '../../../../store/Stock.store';
-import { RootState } from '../../../../store';
-import api from '../../../../shared/services/api';
-import { Notification } from '../../../../shared/helpers/Notification';
+} from '@store/Stock.store';
+import { RootState } from '@store/index';
+import api from '@shared/services/api';
+import { Notification } from '@shared/helpers/Notification';
+import { setaDireitaVerde, lixeira } from '@images/index';
+import { CartDiv, DivSave, GameName, DivBetInfo } from './style';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 type gamesType = [{ id: number; numbers: number[] }];
 
@@ -98,7 +98,7 @@ const Cart = () => {
             headers: { Authorization: `Bearer ${stock.userInfo.token.token}` },
           }
         )
-        .then((res) => {
+        .then(() => {
           Notification({
             message: 'Suas apostas foram salvas!',
             type: 'success',

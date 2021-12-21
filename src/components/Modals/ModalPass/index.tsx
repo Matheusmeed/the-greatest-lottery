@@ -1,9 +1,9 @@
+import api from '@shared/services/api';
+import { Notification } from '@shared/helpers/Notification';
+import { RootState } from '@store/index';
+import { Modal, DivModal, Leave } from '@components/Modals/index';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import api from '../../../shared/services/api';
-import { RootState } from '../../../store';
-import { Notification } from '../../../shared/helpers/Notification';
-import { Modal, DivModal, Leave } from '../index';
 
 interface IModalNameProps {
   setModalPass: Function;
@@ -39,7 +39,7 @@ const ModalPass = (props: IModalNameProps) => {
         console.log(res.data);
         api
           .post(`/reset/${res.data.token}`, { password: pass.trim() })
-          .then((res) => {
+          .then(() => {
             Notification({
               message: 'Senha alterada com sucesso!',
               type: 'success',

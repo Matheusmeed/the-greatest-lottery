@@ -1,11 +1,11 @@
-import { Header, NotLogged } from '../../components';
+import { RootState } from '@store/index';
+import { addGamesInfo, setActualGameInfo } from '@store/Stock.store';
+import { Header, NotLogged } from '@components/index';
+import { GameNumbers, GameList, Cart } from '@betComponents/index';
+import api from '@shared/services/api';
 import { Container, GameName } from './style';
-import { GameNumbers, GameList, Cart } from './BetComponents';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../store';
-import { addGamesInfo, setActualGameInfo } from '../../store/Stock.store';
-import api from '../../shared/services/api';
 
 const BetPage = () => {
   const [error, setError] = useState(false);

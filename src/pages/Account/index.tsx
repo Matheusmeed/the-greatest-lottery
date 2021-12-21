@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
-import { Container, Info } from './styles';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { RootState } from '@store/index';
 import {
   ModalPass,
   ModalName,
   NotLogged,
   Title,
   Header,
-} from '../../components';
+} from '@components/index';
+import { useEffect, useState } from 'react';
+import { Container, Info } from './styles';
+import { useSelector } from 'react-redux';
 
 const Account = () => {
   const stock = useSelector((state: RootState) => state.stock);

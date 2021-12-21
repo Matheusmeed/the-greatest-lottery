@@ -1,13 +1,12 @@
+import { setaDireitaVerdeMusgo, setaDireita } from '@images/index';
+import api from '@shared/services/api';
+import { Title, Notification } from '@components/index';
+import { saveUserInfo } from '@store/Stock.store';
 import { Container, ErrorDiv } from '../style';
-import { setaDireitaVerdeMusgo, setaDireita } from '../../../images';
 import { ForgotPass } from './style';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
-import { useEffect, useState } from 'react';
-import api from '../../../shared/services/api';
-import { Title, Notification } from '../../../components';
-
-import { saveUserInfo } from '../../../store/Stock.store';
 
 const AuthPage = () => {
   const navigate = useNavigate();
@@ -47,7 +46,7 @@ const AuthPage = () => {
           dispatch(saveUserInfo(res.data));
           navigate('/bet');
         })
-        .catch((err) =>
+        .catch(() =>
           Notification({
             message: 'Conta inválida...',
             type: 'danger',
