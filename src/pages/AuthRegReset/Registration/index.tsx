@@ -1,14 +1,13 @@
 import { Container, ErrorDiv } from '../style';
-import Title from '../../../components/Title';
 import { useNavigate } from 'react-router';
 import setaDireitaVerde from '../../../images/seta-direita-verde-musgo.png';
 import setaDireita from '../../../images/seta-direita.png';
 import { ImagemInvertida } from '../ForgotPass/styles';
 import { useEffect, useState } from 'react';
-import api from '../../../services/api';
+import api from '../../../shared/services/api';
 import { useDispatch } from 'react-redux';
 import { saveUserInfo } from '../../../store/Stock.store';
-import { Notification } from '../../../components/Notification';
+import { Notification, Title } from '../../../components';
 
 const RegistrationPage = () => {
   const navigate = useNavigate();

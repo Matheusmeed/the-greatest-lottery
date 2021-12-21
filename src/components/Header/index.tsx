@@ -1,5 +1,4 @@
-import { HeaderDiv } from './style';
-import { HeaderTitleDiv } from './style';
+import { HeaderDiv, HeaderTitleDiv } from './style';
 import sair from '../../images/seta-direita.png';
 import { useNavigate } from 'react-router';
 import {

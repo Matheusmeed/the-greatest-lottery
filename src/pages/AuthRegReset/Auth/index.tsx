@@ -1,15 +1,14 @@
-import Title from '../../../components/Title';
 import { Container, ErrorDiv } from '../style';
 import { ForgotPass } from './style';
 import { useNavigate } from 'react-router';
 import setaDireitaVerde from '../../../images/seta-direita-verde-musgo.png';
 import setaDireita from '../../../images/seta-direita.png';
 import { useEffect, useState } from 'react';
-import api from '../../../services/api';
+import api from '../../../shared/services/api';
+import { Title, Notification } from '../../../components';
 
 import { useDispatch } from 'react-redux';
 import { saveUserInfo } from '../../../store/Stock.store';
-import { Notification } from '../../../components/Notification';
 
 const AuthPage = () => {
   const navigate = useNavigate();

@@ -9,7 +9,7 @@ import {
   setBetList,
 } from '../../../../store/Stock.store';
 import { RootState } from '../../../../store';
-import api from '../../../../services/api';
+import api from '../../../../shared/services/api';
 import { Notification } from '../../../../components/Notification';
 
 type gamesType = [{ id: number; numbers: number[] }];

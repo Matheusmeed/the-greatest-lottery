@@ -1,4 +1,3 @@
-import Title from '../../../components/Title';
 import { Container } from '../style';
 import { useNavigate } from 'react-router-dom';
 import setaDireitaVerde from '../../../images/seta-direita-verde-musgo.png';
@@ -6,9 +5,9 @@ import setaDireita from '../../../images/seta-direita.png';
 import { ImagemInvertida } from './styles';
 import { ErrorDiv } from '../style';
 import { useEffect, useState } from 'react';
-import { Notification } from '../../../components/Notification';
-import api from '../../../services/api';
+import api from '../../../shared/services/api';
 import { setResetToken } from '../../../store/Stock.store';
+import { Title, Notification } from '../../../components';
 import { useDispatch } from 'react-redux';
 
 const ForgotPass = () => {

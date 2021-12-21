@@ -1,4 +1,5 @@
-import Header from '../../components/Header';
+import { Header, NotLogged, Notification } from '../../components';
+import { GameList } from '../Bet/BetComponents';
 import {
   Container,
   FilterGameDiv,
@@ -7,14 +8,11 @@ import {
   OwnBet,
 } from './styles';
 import seta from '../../images/seta-direita-verde-musgo.png';
-import GameList from '../Bet/BetComponents/GamesList';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import NotLogged from '../../components/NotLogged';
-import api from '../../services/api';
-import { Notification } from '../../components/Notification';
+import api from '../../shared/services/api';
 
 interface ISavedBets {
   choosen_numbers: string;
@@ -56,7 +54,7 @@ const MyBetsPage = () => {
           }
         )
         .then((res) => setSavedBets(res.data.reverse()))
-        .catch((error) =>
+        .catch(() =>
           Notification({ message: 'Ocorreu algum erro!', type: 'danger' })
         );
     } else {
@@ -67,7 +65,7 @@ const MyBetsPage = () => {
           },
         })
         .then((res) => setSavedBets(res.data.reverse()))
-        .catch((error) =>
+        .catch(() =>
           Notification({ message: 'Ocorreu algum erro!', type: 'danger' })
         );
     }

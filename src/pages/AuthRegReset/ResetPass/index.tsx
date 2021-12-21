@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import Title from '../../../components/Title';
+import { Title, Notification } from '../../../components';
 import { ImagemInvertida } from '../ForgotPass/styles';
 import seta from '../../../images/seta-direita.png';
 import setaDireitaVerde from '../../../images/seta-direita-verde-musgo.png';
 import { Container, ErrorDiv } from '../style';
-import { Notification } from '../../../components/Notification';
-import api from '../../../services/api';
+import api from '../../../shared/services/api';
 import { RootState } from '../../../store';
 
 const ResetPass = () => {
