@@ -8,6 +8,7 @@ import { setResetToken } from '@store/Stock.store';
 import { Title, Notification } from '@components/index';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { changePass } from '@shared/services/auth';
 
 const ForgotPass = () => {
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ const ForgotPass = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email]);
 
-  function handleSubmit(e: { preventDefault: () => void }) {
+  async function handleSubmit(e: { preventDefault: () => void }) {
     e.preventDefault();
 
     if (errorEmail || !email) {
@@ -40,19 +41,12 @@ const ForgotPass = () => {
         type: 'warning',
       });
     } else {
-      api
-        .post('/reset', { email: email.trim() })
-        .then((res) => {
-          dispatch(setResetToken(res.data.token));
-          navigate('/resetpass');
-        })
-        .catch(() => {
-          Notification({
-            title: 'ERRO',
-            message: 'Usuário não encontrado em nossa base de dados',
-            type: 'danger',
-          });
-        });
+      const data = await changePass(email);
+
+      if (data) {
+        dispatch(setResetToken(data));
+        navigate('/resetpass');
+      }
     }
   }
 

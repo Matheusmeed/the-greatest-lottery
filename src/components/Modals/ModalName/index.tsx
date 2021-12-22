@@ -5,6 +5,7 @@ import { Modal, DivModal, Leave } from '@components/Modals/index';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeUserName } from '@store/Stock.store';
+import { updateUser } from '@shared/services/user';
 
 interface IModalNameProps {
   setModalName: Function;
@@ -18,7 +19,7 @@ const ModalName = (props: IModalNameProps) => {
 
   const nameRegex = /[A-Z][a-z]*/;
 
-  function handleChangeName() {
+  async function handleChangeName() {
     if (!name) {
       Notification({
         message: 'Preencha o campo para alterar o seu nome!',
@@ -31,29 +32,12 @@ const ModalName = (props: IModalNameProps) => {
         type: 'warning',
       });
     } else {
-      api
-        .put(
-          '/user/update',
-          {
-            email: stock.userInfo.user.email,
-            name: name.trim().charAt(0).toUpperCase() + name.slice(1),
-          },
-          {
-            headers: { Authorization: `Bearer ${stock.userInfo.token.token}` },
-          }
-        )
-        .then((res) => {
-          dispatch(changeUserName(res.data.name));
-          Notification({
-            message: 'Nome alterado com sucesso!',
-            type: 'success',
-            duration: 5000,
-          });
-          props.setModalName(false);
-        })
-        .catch(() =>
-          Notification({ message: 'Aconteceu algum erro :(', type: 'danger' })
-        );
+      const data = await updateUser(stock.userInfo.user.email, name);
+
+      if (data !== undefined) {
+        dispatch(changeUserName(data));
+        props.setModalName(false);
+      }
     }
   }
 

@@ -6,6 +6,7 @@ import api from '@shared/services/api';
 import { Container, GameName } from './style';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { listGames } from '@shared/services/games';
 
 const BetPage = () => {
   const [error, setError] = useState(false);
@@ -16,22 +17,24 @@ const BetPage = () => {
   const stock = useSelector((state: RootState) => state.stock);
 
   useEffect(() => {
-    api
-      .get('/cart_games')
-      .then((res) => {
-        dispatch(addGamesInfo(res.data));
-        dispatch(setActualGameInfo(res.data.types[0]));
-        setLoading(false);
-      })
-      .catch(() => {
-        setError(true);
-        setLoading(false);
-      });
+    getGamesData();
   }, [dispatch]);
 
   useEffect(() => {
     stock.userInfo.token.token ? setUserLogged(true) : setUserLogged(false);
   }, [stock]);
+
+  async function getGamesData() {
+    let data = await listGames();
+    if (data) {
+      dispatch(addGamesInfo(data[0]));
+      dispatch(setActualGameInfo(data[1]));
+      setLoading(false);
+    } else {
+      setError(true);
+      setLoading(false);
+    }
+  }
 
   return (
     <>

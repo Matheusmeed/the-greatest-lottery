@@ -7,6 +7,7 @@ import { ImagemInvertida } from '../ForgotPass/styles';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
+import { createUser } from '@shared/services/user';
 
 const RegistrationPage = () => {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ const RegistrationPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email, pass, name]);
 
-  function handleRegistration(event: { preventDefault: () => void }) {
+  async function handleRegistration(event: { preventDefault: () => void }) {
     event?.preventDefault();
 
     if (!name || !pass || !email || errorEmail || errorPass || errorName) {
@@ -57,27 +58,12 @@ const RegistrationPage = () => {
         type: 'warning',
       });
     } else {
-      api
-        .post('/user/create', {
-          email: email.trim(),
-          name: name.trim(),
-          password: pass.trim(),
-        })
-        .then((res) => {
-          Notification({
-            message: 'Conta criada com sucesso!',
-            type: 'success',
-          });
-          dispatch(saveUserInfo(res.data));
-          navigate('/bet');
-          console.log(res);
-        })
-        .catch(() =>
-          Notification({
-            message: 'Esse email já existe!',
-            type: 'danger',
-          })
-        );
+      const data = await createUser(email, name, pass);
+
+      if (data !== undefined) {
+        dispatch(saveUserInfo(data));
+        navigate('/bet');
+      }
     }
   }
 

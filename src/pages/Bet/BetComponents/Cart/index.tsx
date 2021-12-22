@@ -4,12 +4,12 @@ import {
   setBetList,
 } from '@store/Stock.store';
 import { RootState } from '@store/index';
-import api from '@shared/services/api';
 import { Notification } from '@shared/helpers/Notification';
 import { setaDireitaVerde, lixeira } from '@images/index';
 import { CartDiv, DivSave, GameName, DivBetInfo } from './style';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { newBet } from '@shared/services/bets';
 
 type gamesType = [{ id: number; numbers: number[] }];
 
@@ -70,7 +70,7 @@ const Cart = () => {
     return total.toLocaleString('pt-br', { minimumFractionDigits: 2 });
   }
 
-  function handleSave() {
+  async function handleSave() {
     if (stock.betList.length === 1) {
       Notification({
         title: 'Seu carrinho está vazio!.',
@@ -90,33 +90,11 @@ const Cart = () => {
         }
       });
       games.shift();
-      api
-        .post(
-          '/bet/new-bet',
-          { games: games },
-          {
-            headers: { Authorization: `Bearer ${stock.userInfo.token.token}` },
-          }
-        )
-        .then(() => {
-          Notification({
-            message: 'Suas apostas foram salvas!',
-            type: 'success',
-          });
-          dispatch(clearBetList([{}]));
-        })
-        .catch((error) =>
-          error.response
-            ? Notification({
-                title: 'Erro',
-                message: `O valor mínimo autorizado é R$${stock.gamesInfo.min_cart_value},00!`,
-                type: 'danger',
-              })
-            : Notification({
-                message: 'Aconteceu algum erro :(',
-                type: 'danger',
-              })
-        );
+      const data = await newBet(games, stock.gamesInfo.min_cart_value);
+
+      if (data) {
+        dispatch(clearBetList([{}]));
+      }
     }
   }
 

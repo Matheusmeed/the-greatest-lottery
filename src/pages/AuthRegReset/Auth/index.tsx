@@ -4,9 +4,10 @@ import { Title, Notification } from '@components/index';
 import { saveUserInfo } from '@store/Stock.store';
 import { Container, ErrorDiv } from '../style';
 import { ForgotPass } from './style';
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
+import { login } from '@shared/services/auth';
 
 const AuthPage = () => {
   const navigate = useNavigate();
@@ -32,26 +33,20 @@ const AuthPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email]);
 
-  function logIn(e: { preventDefault: () => void }) {
-    e.preventDefault();
+  async function logIn(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
     if (errorEmail || !pass || !email) {
       Notification({
         message: 'Você deve preencher todos os campos corretamente',
         type: 'warning',
       });
     } else {
-      api
-        .post('/login', { email: email.trim(), password: pass.trim() })
-        .then((res) => {
-          dispatch(saveUserInfo(res.data));
-          navigate('/bet');
-        })
-        .catch(() =>
-          Notification({
-            message: 'Conta inválida...',
-            type: 'danger',
-          })
-        );
+      const data = await login({ email: email, password: pass });
+      if (data) {
+        dispatch(saveUserInfo(data));
+        navigate('/bet');
+      }
     }
   }
 

@@ -4,6 +4,7 @@ import { RootState } from '@store/index';
 import { Modal, DivModal, Leave } from '@components/Modals/index';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { changePass, resetPass } from '@shared/services/auth';
 
 interface IModalNameProps {
   setModalPass: Function;
@@ -16,7 +17,7 @@ const ModalPass = (props: IModalNameProps) => {
 
   const passRegex = /^(?=.*\d)(?=.*[a-zA-Z]).{6,16}$/;
 
-  function handleChangePass() {
+  async function handleChangePass() {
     if (!pass || !pass2) {
       Notification({
         message: 'Preencha todos os campos!',
@@ -35,18 +36,13 @@ const ModalPass = (props: IModalNameProps) => {
         type: 'warning',
       });
     } else {
-      api.post('/reset', { email: stock.userInfo.user.email }).then((res) => {
-        console.log(res.data);
-        api
-          .post(`/reset/${res.data.token}`, { password: pass.trim() })
-          .then(() => {
-            Notification({
-              message: 'Senha alterada com sucesso!',
-              type: 'success',
-            });
-            props.setModalPass(false);
-          });
-      });
+      const token = await changePass(stock.userInfo.user.email);
+      if (token) {
+        const data = await resetPass(token, pass);
+        if (data) {
+          props.setModalPass(false);
+        }
+      }
     }
   }
 

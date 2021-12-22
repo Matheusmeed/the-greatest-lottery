@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ImagemInvertida } from '../ForgotPass/styles';
 import { Container, ErrorDiv } from '../style';
+import { resetPass } from '@shared/services/auth';
 
 const ResetPass = () => {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ const ResetPass = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pass, pass2]);
 
-  function handleChangePass(event: { preventDefault: () => void }) {
+  async function handleChangePass(event: { preventDefault: () => void }) {
     event?.preventDefault();
     if (!pass || !pass2) {
       Notification({
@@ -61,22 +62,11 @@ const ResetPass = () => {
         type: 'warning',
       });
     } else {
-      api
-        .post(`/reset/${stock.resetToken}`, { password: pass })
-        .then(() => {
-          Notification({
-            message: 'Senha atualizada com sucesso!',
-            type: 'success',
-          });
-          navigate('/');
-        })
-        .catch(() =>
-          Notification({
-            title: 'ERRO',
-            message: 'Aconteceu algum erro :(',
-            type: 'danger',
-          })
-        );
+      const data = await resetPass(stock.resetToken, pass);
+
+      if (data) {
+        navigate('/');
+      }
     }
   }
 
