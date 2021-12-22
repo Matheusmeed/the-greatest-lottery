@@ -61,7 +61,7 @@ const BetPage = () => {
               </div>
 
               {stock.gamesInfo && stock.actualGameInfo ? (
-                <GameList filter={false} />
+                <GameList filter={false} disabled={false} />
               ) : (
                 ''
               )}

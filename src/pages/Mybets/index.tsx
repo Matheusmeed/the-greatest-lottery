@@ -85,7 +85,9 @@ const MyBetsPage = () => {
                 <h3>RECENT GAMES</h3>
               </div>
               <h4>Filters</h4>
-              {stock.gamesInfo && <GameList filter={true} />}
+              {savedBets.length
+                ? stock.gamesInfo && <GameList filter={true} disabled={false} />
+                : stock.gamesInfo && <GameList filter={true} disabled={true} />}
             </FilterGameDiv>
 
             <div>
@@ -95,39 +97,44 @@ const MyBetsPage = () => {
             </div>
           </Container>
           <BetInfoDiv>
-            {savedBets
-              ? savedBets.map((bet) => {
-                  let color;
-                  stock.gamesInfo.types.map((el) => {
-                    if (bet.type.type === el.type) {
-                      color = el.color;
-                    }
-                    return '';
-                  });
+            {savedBets.length ? (
+              savedBets.map((bet) => {
+                let color;
+                stock.gamesInfo.types.map((el) => {
+                  if (bet.type.type === el.type) {
+                    color = el.color;
+                  }
+                  return '';
+                });
 
-                  let choosenNumbers = bet.choosen_numbers.replace(/,/g, ', ');
-                  let price = bet.price.toLocaleString('pt-br', {
-                    style: 'currency',
-                    currency: 'BRL',
-                  });
-                  let data = new Date(bet.created_at).toLocaleDateString(
-                    'pt-BR',
-                    { timeZone: 'UTC' }
+                let choosenNumbers = bet.choosen_numbers.replace(/,/g, ', ');
+                let price = bet.price.toLocaleString('pt-br', {
+                  style: 'currency',
+                  currency: 'BRL',
+                });
+                let data = new Date(bet.created_at).toLocaleDateString(
+                  'pt-BR',
+                  { timeZone: 'UTC' }
+                );
+
+                if (bet.type.type) {
+                  return (
+                    <OwnBet key={bet.id} color={color}>
+                      <h3>{choosenNumbers}</h3>
+                      <h5>
+                        {data} - ({price})
+                      </h5>
+                      <h4>{bet.type.type}</h4>
+                    </OwnBet>
                   );
-
-                  if (bet.type.type) {
-                    return (
-                      <OwnBet key={bet.id} color={color}>
-                        <h3>{choosenNumbers}</h3>
-                        <h5>
-                          {data} - ({price})
-                        </h5>
-                        <h4>{bet.type.type}</h4>
-                      </OwnBet>
-                    );
-                  } else return '';
-                })
-              : ''}
+                } else return '';
+              })
+            ) : (
+              <div>
+                Você ainda não tem apostas salvas... Vá para a página de
+                apostas, adicione suas apostas ao carrinho e salve-as.
+              </div>
+            )}
           </BetInfoDiv>
         </>
       )}

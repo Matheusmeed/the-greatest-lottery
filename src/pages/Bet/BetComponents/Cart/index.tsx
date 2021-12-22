@@ -10,12 +10,14 @@ import { CartDiv, DivSave, GameName, DivBetInfo } from './style';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { newBet } from '@shared/services/bets';
+import { useNavigate } from 'react-router-dom';
 
 type gamesType = [{ id: number; numbers: number[] }];
 
 const Cart = () => {
   const stock = useSelector((state: RootState) => state.stock);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (stock.cartBetContent !== undefined && stock.cartBetContent.gameName) {
@@ -95,6 +97,7 @@ const Cart = () => {
       if (data) {
         dispatch(clearBetList([{}]));
       }
+      navigate('/mybets');
     }
   }
 

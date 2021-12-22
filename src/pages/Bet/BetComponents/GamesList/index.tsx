@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 interface IGameListProps {
   filter: boolean;
+  disabled: boolean;
 }
 
 const GameList = (props: IGameListProps) => {
@@ -12,10 +13,16 @@ const GameList = (props: IGameListProps) => {
   const dispatch = useDispatch();
 
   function renderGames() {
+    let color: string;
+
     return stock.gamesInfo.types.map((el) => {
+      if (!props.disabled) {
+        color = el.color;
+      }
+
       if (el.id === stock.actualGameInfo.id) {
         return (
-          <GameButton theme={el.color} key={el.id}>
+          <GameButton theme={color} key={el.id}>
             {el.type}
           </GameButton>
         );
@@ -29,7 +36,7 @@ const GameList = (props: IGameListProps) => {
                 dispatch(setActualGameInfo(el));
               }
             }}
-            color={el.color}
+            color={color}
             key={el.id}
           >
             {el.type}
