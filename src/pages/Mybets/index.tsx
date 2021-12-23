@@ -1,7 +1,5 @@
 import { RootState } from '@store/index';
-import api from '@shared/services/api';
-import { Header, NotLogged, Notification } from '@components/index';
-import { GameList } from '@betComponents/index';
+import { Header, NotLogged } from '@components/index';
 import { setaDireitaVerdeMusgo } from '@images/index';
 import {
   Container,
@@ -13,6 +11,8 @@ import {
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import GamesFilter from '@pages/Bet/BetComponents/GamesFilter';
+import { listBet } from '@shared/services/bets';
 
 interface ISavedBets {
   choosen_numbers: string;
@@ -41,35 +41,16 @@ const MyBetsPage = () => {
     setLoading(false);
   }, [stock]);
 
-  useEffect(() => {
-    if (stock.actualGameInfo.type) {
-      api
-        .get(
-          `/bet/all-bets?type%5B%5D=${stock.actualGameInfo.type}` ||
-            `/bet/all-bets`,
-          {
-            headers: {
-              Authorization: `Bearer ${stock.userInfo.token.token}`,
-            },
-          }
-        )
-        .then((res) => setSavedBets(res.data.reverse()))
-        .catch(() =>
-          Notification({ message: 'Ocorreu algum erro!', type: 'danger' })
-        );
-    } else {
-      api
-        .get(`/bet/all-bets`, {
-          headers: {
-            Authorization: `Bearer ${stock.userInfo.token.token}`,
-          },
-        })
-        .then((res) => setSavedBets(res.data.reverse()))
-        .catch(() =>
-          Notification({ message: 'Ocorreu algum erro!', type: 'danger' })
-        );
+  async function getBets() {
+    const data = await listBet(stock.selectedGames);
+    if (data) {
+      setSavedBets(data);
     }
-  }, [stock.actualGameInfo, stock.userInfo.token.token]);
+  }
+
+  useEffect(() => {
+    getBets();
+  }, [stock.selectedGames]);
 
   return (
     <>
@@ -86,8 +67,8 @@ const MyBetsPage = () => {
               </div>
               <h4>Filters</h4>
               {savedBets.length
-                ? stock.gamesInfo && <GameList filter={true} disabled={false} />
-                : stock.gamesInfo && <GameList filter={true} disabled={true} />}
+                ? stock.gamesInfo && <GamesFilter disabled={false} />
+                : stock.gamesInfo && <GamesFilter disabled={true} />}
             </FilterGameDiv>
 
             <div>

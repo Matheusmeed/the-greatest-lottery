@@ -2,7 +2,6 @@ import { RootState } from '@store/index';
 import { addGamesInfo, setActualGameInfo } from '@store/Stock.store';
 import { Header, NotLogged } from '@components/index';
 import { GameNumbers, GameList, Cart } from '@betComponents/index';
-import api from '@shared/services/api';
 import { Container, GameName } from './style';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -60,11 +59,7 @@ const BetPage = () => {
                 <h4>Choose a game</h4>
               </div>
 
-              {stock.gamesInfo && stock.actualGameInfo ? (
-                <GameList filter={false} disabled={false} />
-              ) : (
-                ''
-              )}
+              {stock.gamesInfo && stock.actualGameInfo ? <GameList /> : ''}
 
               <div>
                 <h4>Fill your bet</h4>

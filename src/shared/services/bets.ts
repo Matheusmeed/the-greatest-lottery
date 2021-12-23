@@ -1,7 +1,25 @@
 import { Notification } from '@components/index';
 import api from './api';
 
-export const listBet = () => {};
+export const listBet = async (games: string[]) => {
+  let response;
+
+  let gamesArr = games.map((game) => {
+    if (games.length - 1 === games.indexOf(game)) {
+      return 'type%5B%5D=' + game;
+    } else {
+      return 'type%5B%5D=' + game + '&';
+    }
+  });
+
+  await api
+    .get(`/bet/all-bets?${gamesArr.join('')}` || `/bet/all-bets`, {})
+    .then((res) => (response = res.data.reverse()))
+    .catch(() =>
+      Notification({ message: 'Ocorreu algum erro!', type: 'danger' })
+    );
+  return response;
+};
 
 export const newBet = async (
   games: [{ id: number; numbers: number[] }],

@@ -1,6 +1,5 @@
 import { saveUserInfo } from '@store/Stock.store';
 import { setaDireitaVerdeMusgo, setaDireita } from '@images/index';
-import api from '@shared/services/api';
 import { Notification, Title } from '@components/index';
 import { Container, ErrorDiv } from '../style';
 import { ImagemInvertida } from '../ForgotPass/styles';
@@ -8,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { createUser } from '@shared/services/user';
+import { login } from '@shared/services/auth';
 
 const RegistrationPage = () => {
   const navigate = useNavigate();
@@ -60,9 +60,12 @@ const RegistrationPage = () => {
     } else {
       const data = await createUser(email, name, pass);
 
-      if (data !== undefined) {
-        dispatch(saveUserInfo(data));
-        navigate('/bet');
+      if (data) {
+        const dataLogin = await login({ email: email, password: pass });
+        if (dataLogin) {
+          dispatch(saveUserInfo(dataLogin));
+          navigate('/bet');
+        }
       }
     }
   }

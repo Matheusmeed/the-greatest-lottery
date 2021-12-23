@@ -2,7 +2,7 @@ import { setaDireita } from '@images/index';
 import {
   clearBetList,
   removeUserInfo,
-  setActualGameInfo,
+  setSelectedGames,
 } from '@store/Stock.store';
 import { HeaderDiv, HeaderTitleDiv } from './style';
 import { useNavigate } from 'react-router';
@@ -19,6 +19,7 @@ const Header = (props: IHeader) => {
   function handleLeave() {
     dispatch(clearBetList([{}]));
     dispatch(removeUserInfo());
+    localStorage.removeItem('token');
     navigate('/');
   }
 
@@ -32,17 +33,7 @@ const Header = (props: IHeader) => {
         {props.showHomeBtn && (
           <button
             onClick={() => {
-              dispatch(
-                setActualGameInfo({
-                  id: 0,
-                  type: '',
-                  description: '',
-                  range: 0,
-                  price: 0,
-                  max_number: 0,
-                  color: '',
-                })
-              );
+              dispatch(setSelectedGames([]));
               navigate('/mybets');
             }}
           >

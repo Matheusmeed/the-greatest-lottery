@@ -75,6 +75,7 @@ interface IInitialState {
   };
 
   actualGameInfo: gameType;
+  selectedGames: string[];
   selectedNumbers: number[];
   cartBetContent: IBetContent;
   betList: IBetList[];

@@ -2,6 +2,7 @@ import {
   clearBetList,
   clearCartBetContent,
   setBetList,
+  setSelectedGames,
 } from '@store/Stock.store';
 import { RootState } from '@store/index';
 import { Notification } from '@shared/helpers/Notification';
@@ -96,8 +97,9 @@ const Cart = () => {
 
       if (data) {
         dispatch(clearBetList([{}]));
+        navigate('/mybets');
       }
-      navigate('/mybets');
+      dispatch(setSelectedGames([]));
     }
   }
 

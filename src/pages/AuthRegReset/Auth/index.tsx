@@ -1,5 +1,4 @@
 import { setaDireitaVerdeMusgo, setaDireita } from '@images/index';
-import api from '@shared/services/api';
 import { Title, Notification } from '@components/index';
 import { saveUserInfo } from '@store/Stock.store';
 import { Container, ErrorDiv } from '../style';

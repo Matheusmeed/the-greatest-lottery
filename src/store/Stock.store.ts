@@ -25,6 +25,7 @@ const stock = createSlice({
     },
 
     actualGameInfo: {},
+    selectedGames: [''],
     selectedNumbers: [0],
     cartBetContent: {},
     betList: [{}],
@@ -52,6 +53,10 @@ const stock = createSlice({
 
     setActualGameInfo(state, action: IActualGameInfoAction) {
       state.actualGameInfo = action.payload;
+    },
+
+    setSelectedGames(state, action: { payload: string[] }) {
+      state.selectedGames = action.payload;
     },
 
     setSelectedNumbers(state, action: ISelectedNumbersAction) {
@@ -90,6 +95,7 @@ export const {
   removeUserInfo,
   addGamesInfo,
   setActualGameInfo,
+  setSelectedGames,
   setSelectedNumbers,
   setCartBetContent,
   setBetList,
