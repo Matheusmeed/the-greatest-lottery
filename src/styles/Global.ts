@@ -13,6 +13,10 @@ export const GlobalStyle = createGlobalStyle`
     overflow-x: hidden;
   }
 
+  color {
+    align-items: center;
+  }
+
   button {
     cursor: pointer;
   }
@@ -30,5 +34,17 @@ export const GlobalStyle = createGlobalStyle`
     font-style: italic;
     color: #707070;
   }
+
+  @media (max-width: 700px) {
+    
+
+    html {
+      font-size: 82%;
+    }
+
+
+}
+
+
   
 `;

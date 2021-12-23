@@ -13,6 +13,10 @@ export const CartDiv = styled.div`
   margin-left: 5px;
   margin-bottom: 30px;
 
+  @media (max-width: 700px) {
+    width: 90%;
+  }
+
   ul {
     padding: 0;
     height: 200px;

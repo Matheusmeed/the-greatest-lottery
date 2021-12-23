@@ -27,6 +27,11 @@ export const FilterGameDiv = styled.div`
     display: inline;
     justify-content: space-between;
   }
+
+  @media (max-width: 700px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 export const NewBetBtn = styled.button`

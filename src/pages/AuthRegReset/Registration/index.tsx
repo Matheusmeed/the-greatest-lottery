@@ -132,7 +132,7 @@ const RegistrationPage = () => {
               </button>
             </div>
           </form>
-          <button onClick={() => navigate('/')}>
+          <button onClick={() => navigate('/')} style={{ paddingBottom: 20 }}>
             {' '}
             <ImagemInvertida src={setaDireita} alt='back' /> Back
           </button>

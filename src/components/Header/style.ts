@@ -34,6 +34,36 @@ export const HeaderDiv = styled.div`
     width: 17px;
     margin-left: 6px;
   }
+
+  @media (max-width: 700px) {
+    position: relative;
+  }
+`;
+
+export const DivLinks = styled.div`
+  @media (max-width: 700px) {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-top: 160px;
+  }
+`;
+export const DropdownBtn = styled.button`
+  display: none;
+  border: none;
+  background: none;
+  color: #b5c401;
+  font-weight: bold;
+  font-size: 16px;
+  font-style: normal;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+
+  @media (max-width: 700px) {
+    display: flex;
+  }
 `;
 
 export const HeaderTitleDiv = styled.div`

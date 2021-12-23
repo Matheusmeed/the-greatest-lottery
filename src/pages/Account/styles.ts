@@ -7,6 +7,7 @@ export const Container = styled.div`
   margin-top: 50px;
   margin-left: 5px;
   margin-right: 5px;
+  overflow-y: hidden;
 
   @media (max-width: 600px) {
     display: flex;

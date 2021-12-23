@@ -20,4 +20,11 @@ export const TitleDiv = styled.div`
   * {
     margin-top: 0;
   }
+
+  @media (max-width: 700px) {
+    padding-top: 10px;
+    padding-bottom: 30px;
+    width: 100px;
+    font-size: 100%;
+  }
 `;

@@ -16,4 +16,8 @@ export const GameFilterBtn = styled.button`
     background-color: ${(props) => props.color + '99'};
     color: white;
   }
+
+  @media (max-width: 700px) {
+    margin-bottom: 4px;
+  }
 `;

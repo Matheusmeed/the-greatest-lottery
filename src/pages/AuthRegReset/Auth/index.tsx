@@ -94,7 +94,10 @@ const AuthPage = () => {
             </button>
           </div>
         </form>
-        <button onClick={() => navigate('/registration')}>
+        <button
+          onClick={() => navigate('/registration')}
+          style={{ paddingBottom: 20 }}
+        >
           Sign Up <img src={setaDireita} alt='' />
         </button>
       </div>
