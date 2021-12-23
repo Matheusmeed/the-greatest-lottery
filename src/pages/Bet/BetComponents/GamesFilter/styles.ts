@@ -11,6 +11,7 @@ export const GameFilterBtn = styled.button`
   padding-right: 15px;
   font-weight: bold;
   transition: ease-in 0.1s;
+  width: 110px;
 
   :hover {
     background-color: ${(props) => props.color + '99'};

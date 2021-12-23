@@ -4,9 +4,13 @@ export const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-left: 70px;
+  margin-left: 75px;
   margin-right: 95px;
   margin-top: 40px;
+
+  @media (max-width: 700px) {
+    margin-left: 20px;
+  }
 `;
 
 export const FilterGameDiv = styled.div`
@@ -42,6 +46,7 @@ export const NewBetBtn = styled.button`
   display: inline-flex;
   align-items: center;
   background: none;
+  margin-right: -20px;
 
   img {
     width: 20px;
@@ -52,7 +57,7 @@ export const NewBetBtn = styled.button`
 export const BetInfoDiv = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 70px;
+  margin-left: 75px;
   margin-top: 30px;
   height: 550px;
   width: 300px;
@@ -69,6 +74,10 @@ export const BetInfoDiv = styled.div`
 
   h5 {
     font-weight: normal;
+  }
+
+  @media (max-width: 700px) {
+    margin-left: 20px;
   }
 `;
 

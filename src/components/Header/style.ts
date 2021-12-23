@@ -16,7 +16,6 @@ export const HeaderDiv = styled.div`
 
   div {
     display: flex;
-    justify-content: space-between;
     align-items: center;
   }
 
@@ -36,33 +35,9 @@ export const HeaderDiv = styled.div`
   }
 
   @media (max-width: 700px) {
-    position: relative;
-  }
-`;
-
-export const DivLinks = styled.div`
-  @media (max-width: 700px) {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    margin-top: 160px;
-  }
-`;
-export const DropdownBtn = styled.button`
-  display: none;
-  border: none;
-  background: none;
-  color: #b5c401;
-  font-weight: bold;
-  font-size: 16px;
-  font-style: normal;
-  cursor: pointer;
-  width: 30px;
-  height: 30px;
-  text-align: center;
-
-  @media (max-width: 700px) {
-    display: flex;
+    div button {
+      margin: 8px;
+    }
   }
 `;
 
@@ -77,5 +52,10 @@ export const HeaderTitleDiv = styled.div`
   div {
     border-bottom: 4px solid #b5c401;
     height: 100%;
+  }
+
+  @media (max-width: 700px) {
+    margin-left: -30px;
+    margin-right: 20px;
   }
 `;

@@ -46,6 +46,10 @@ export const DivModal = styled.div`
     border: none;
     margin-top: 20px;
   }
+
+  @media (max-width: 700px) {
+    width: 200px;
+  }
 `;
 
 export const Leave = styled.div`

@@ -55,4 +55,8 @@ export const GameBtn = styled.button`
     color: #00ff95;
     border-color: #00ff95;
   }
+
+  @media (max-width: 700px) {
+    margin-top: 3px;
+  }
 `;

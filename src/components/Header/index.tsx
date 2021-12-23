@@ -4,7 +4,7 @@ import {
   removeUserInfo,
   setSelectedGames,
 } from '@store/Stock.store';
-import { DivLinks, DropdownBtn, HeaderDiv, HeaderTitleDiv } from './style';
+import { HeaderDiv, HeaderTitleDiv } from './style';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 
@@ -42,13 +42,12 @@ const Header = (props: IHeader) => {
         )}
       </HeaderTitleDiv>
 
-      <DivLinks>
-        <DropdownBtn>&#9776;</DropdownBtn>
+      <div>
         <button onClick={() => navigate('/account')}>Account</button>
         <button onClick={handleLeave}>
           Sair <img src={setaDireita} alt='sair' />
         </button>
-      </DivLinks>
+      </div>
     </HeaderDiv>
   );
 };
