@@ -1,11 +1,9 @@
-import api from '@shared/services/api';
-import { Notification } from '@shared/helpers/Notification';
+import { updateUser, Notification } from '@shared/index';
 import { RootState } from '@store/index';
 import { Modal, DivModal, Leave } from '@components/Modals/index';
+import { changeUserName } from '@store/Stock.store';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeUserName } from '@store/Stock.store';
-import { updateUser } from '@shared/services/user';
 
 interface IModalNameProps {
   setModalName: Function;

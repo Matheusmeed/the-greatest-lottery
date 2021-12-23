@@ -1,13 +1,18 @@
 import { saveUserInfo } from '@store/Stock.store';
 import { setaDireitaVerdeMusgo, setaDireita } from '@images/index';
 import { Notification, Title } from '@components/index';
+import {
+  emailRegex,
+  passRegex,
+  nameRegex,
+  login,
+  createUser,
+} from '@shared/index';
 import { Container, ErrorDiv } from '../style';
 import { ImagemInvertida } from '../ForgotPass/styles';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
-import { createUser } from '@shared/services/user';
-import { login } from '@shared/services/auth';
 
 const RegistrationPage = () => {
   const navigate = useNavigate();
@@ -19,10 +24,6 @@ const RegistrationPage = () => {
   const [errorName, setNameError] = useState(false);
   const [errorEmail, setEmailError] = useState(false);
   const [errorPass, setPassError] = useState(false);
-
-  const emailRegex = /\S+@\S+\.\S+/;
-  const passRegex = /^(?=.*\d)(?=.*[a-zA-Z]).{6,16}$/;
-  const nameRegex = /[A-Z][a-z]*/;
 
   function check() {
     if (email !== '' && !emailRegex.test(email)) {

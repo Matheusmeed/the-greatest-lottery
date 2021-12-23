@@ -1,5 +1,4 @@
 import { setaDireitaVerdeMusgo, setaDireita } from '@images/index';
-import api from '@shared/services/api';
 import { RootState } from '@store/index';
 import { Title, Notification } from '@components/index';
 import { useEffect, useState } from 'react';
@@ -7,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ImagemInvertida } from '../ForgotPass/styles';
 import { Container, ErrorDiv } from '../style';
-import { resetPass } from '@shared/services/auth';
+import { passRegex, resetPass } from '@shared/index';
 
 const ResetPass = () => {
   const navigate = useNavigate();
@@ -17,7 +16,6 @@ const ResetPass = () => {
 
   const [errorPass, setPassError] = useState(false);
   const [errorPass2, setPassError2] = useState(false);
-  const passRegex = /^(?=.*\d)(?=.*[a-zA-Z]).{6,16}$/;
 
   function check(passNum: number) {
     if (passNum === 1) {

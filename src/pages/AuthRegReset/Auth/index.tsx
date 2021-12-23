@@ -1,12 +1,12 @@
 import { setaDireitaVerdeMusgo, setaDireita } from '@images/index';
 import { Title, Notification } from '@components/index';
 import { saveUserInfo } from '@store/Stock.store';
+import { login } from '@shared/services/auth';
 import { Container, ErrorDiv } from '../style';
 import { ForgotPass } from './style';
 import { FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
-import { login } from '@shared/services/auth';
 
 const AuthPage = () => {
   const navigate = useNavigate();

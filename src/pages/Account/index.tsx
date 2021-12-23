@@ -6,6 +6,7 @@ import {
   Title,
   Header,
 } from '@components/index';
+import { formatDate } from '@shared/helpers/Functions';
 import { useEffect, useState } from 'react';
 import { Container, Info } from './styles';
 import { useSelector } from 'react-redux';
@@ -21,7 +22,7 @@ const Account = () => {
   const name = stock.userInfo.user.name;
   const email = stock.userInfo.user.email;
   const dateUnformatted = stock.userInfo.user.created_at;
-  let date = new Date(dateUnformatted).toLocaleDateString();
+  let date = formatDate(dateUnformatted);
 
   useEffect(() => {
     stock.userInfo.token.token ? setLogged(true) : setLogged(false);

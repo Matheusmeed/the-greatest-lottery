@@ -3,11 +3,6 @@ import { setActualGameInfo } from '@store/Stock.store';
 import { Container, GameButton } from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 
-// interface IGameListProps {
-//   filter: boolean;
-//   disabled: boolean;
-// }
-
 const GameList = () => {
   const stock = useSelector((state: RootState) => state.stock);
   const dispatch = useDispatch();

@@ -5,12 +5,11 @@ import {
   setSelectedGames,
 } from '@store/Stock.store';
 import { RootState } from '@store/index';
-import { Notification } from '@shared/helpers/Notification';
 import { setaDireitaVerde, lixeira } from '@images/index';
+import { formatPrice, newBet, Notification } from '@shared/index';
 import { CartDiv, DivSave, GameName, DivBetInfo } from './style';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { newBet } from '@shared/services/bets';
 import { useNavigate } from 'react-router-dom';
 
 type gamesType = [{ id: number; numbers: number[] }];
@@ -70,7 +69,7 @@ const Cart = () => {
         return '';
       }
     });
-    return total.toLocaleString('pt-br', { minimumFractionDigits: 2 });
+    return formatPrice(total);
   }
 
   async function handleSave() {
@@ -125,11 +124,7 @@ const Cart = () => {
                       </div>
                       <div>
                         <GameName color={el.gameColor}>{el.gameName}</GameName>{' '}
-                        R${' '}
-                        {el.gamePrice &&
-                          el.gamePrice.toLocaleString('pt-br', {
-                            minimumFractionDigits: 2,
-                          })}
+                        R$ {el.gamePrice && formatPrice(el.gamePrice)}
                       </div>
                     </DivBetInfo>
                   </li>

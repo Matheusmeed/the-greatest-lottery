@@ -1,14 +1,13 @@
-import { useNavigate } from 'react-router-dom';
+import { setaDireitaVerdeMusgo, setaDireita } from '@images/index';
+import { setResetToken } from '@store/Stock.store';
+import { Title, Notification } from '@components/index';
+import { changePass } from '@shared/services/auth';
 import { Container } from '../style';
 import { ImagemInvertida } from './styles';
 import { ErrorDiv } from '../style';
-import { setaDireitaVerdeMusgo, setaDireita } from '@images/index';
-import api from '@shared/services/api';
-import { setResetToken } from '@store/Stock.store';
-import { Title, Notification } from '@components/index';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { changePass } from '@shared/services/auth';
 
 const ForgotPass = () => {
   const dispatch = useDispatch();

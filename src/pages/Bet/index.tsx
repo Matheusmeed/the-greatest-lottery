@@ -2,10 +2,10 @@ import { RootState } from '@store/index';
 import { addGamesInfo, setActualGameInfo } from '@store/Stock.store';
 import { Header, NotLogged } from '@components/index';
 import { GameNumbers, GameList, Cart } from '@betComponents/index';
+import { listGames } from '@shared/services/games';
 import { Container, GameName } from './style';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { listGames } from '@shared/services/games';
 
 const BetPage = () => {
   const [error, setError] = useState(false);

@@ -1,10 +1,8 @@
-import api from '@shared/services/api';
-import { Notification } from '@shared/helpers/Notification';
+import { passRegex, changePass, resetPass, Notification } from '@shared/index';
 import { RootState } from '@store/index';
 import { Modal, DivModal, Leave } from '@components/Modals/index';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { changePass, resetPass } from '@shared/services/auth';
 
 interface IModalNameProps {
   setModalPass: Function;
@@ -14,8 +12,6 @@ const ModalPass = (props: IModalNameProps) => {
   const stock = useSelector((state: RootState) => state.stock);
   const [pass, setPass] = useState('');
   const [pass2, setPass2] = useState('');
-
-  const passRegex = /^(?=.*\d)(?=.*[a-zA-Z]).{6,16}$/;
 
   async function handleChangePass() {
     if (!pass || !pass2) {

@@ -1,6 +1,8 @@
 import { RootState } from '@store/index';
 import { Header, NotLogged } from '@components/index';
 import { setaDireitaVerdeMusgo } from '@images/index';
+import { formatDate, formatPrice, listBet } from '@shared/index';
+import { GamesFilter } from '@pages/Bet/BetComponents/index';
 import {
   Container,
   FilterGameDiv,
@@ -11,8 +13,6 @@ import {
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import GamesFilter from '@pages/Bet/BetComponents/GamesFilter';
-import { listBet } from '@shared/services/bets';
 
 interface ISavedBets {
   choosen_numbers: string;
@@ -89,21 +89,15 @@ const MyBetsPage = () => {
                 });
 
                 let choosenNumbers = bet.choosen_numbers.replace(/,/g, ', ');
-                let price = bet.price.toLocaleString('pt-br', {
-                  style: 'currency',
-                  currency: 'BRL',
-                });
-                let data = new Date(bet.created_at).toLocaleDateString(
-                  'pt-BR',
-                  { timeZone: 'UTC' }
-                );
+                let price = formatPrice(bet.price);
+                let data = formatDate(bet.created_at);
 
                 if (bet.type.type) {
                   return (
                     <OwnBet key={bet.id} color={color}>
                       <h3>{choosenNumbers}</h3>
                       <h5>
-                        {data} - ({price})
+                        {data} - (R$ {price})
                       </h5>
                       <h4>{bet.type.type}</h4>
                     </OwnBet>
